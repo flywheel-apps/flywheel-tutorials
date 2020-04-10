@@ -3,15 +3,6 @@
 Hosts a few notebooks that illustrate interactions with a Flywheel instance using the 
 [flywheel-sdk](https://flywheel-io.gitlab.io/product/backend/sdk/branches/master/python/index.html).
 
-## Table of content 
-
-
-|     | Title        | Description             |
-| --- |:-------------|:------------------------|
-| 0 | [Template](https://gitlab.com/flywheel-io/public/jupyter-notebooks/-/blob/master/template.ipynb) | Template notebook to serve as reference for structuring notebooks in this repository |
-| 1 | [Add subjects to a collection](https://gitlab.com/flywheel-io/public/jupyter-notebooks/-/blob/master/add-to-collection-excluding-subjects-in-csv.ipynb )|  <ul><li>Get the project label and collection label (if you have one) you want to edit </li> <li>Parse CSV file that contain Subject Label you want to exclude or any restrain you are looking for </li>|
-| 2 | [List outdated gear rules and update gear rules for project(s) with latest gear version](https://gitlab.com/flywheel-io/public/jupyter-notebooks/-/blob/master/find-outdated-gear-rule-and-update-with-latest-version.ipynb)  | <ul><li> List all project(s) available and gear rules for the project  <br> <li>Functions :<br> a. `get_gear_latest_version(fw, gear_id)` function - To get the latest version of a gear <br> b. `cleanup_rule(rule, project=None)` function - Formulate gear rule by taking a rule input object  |
-
 ## Getting started
 
 Notebooks are files that allow you to create and share documents that contain live code, equations, 
@@ -33,3 +24,15 @@ Nothing to do. Just click [here to get started](https://mybinder.org/v2/gl/flywh
 * Install [Jupyter Notebook](https://jupyter.org) or [JupyterLab](https://jupyter.org).
 * Git clone this repo: `git clone https://gitlab.com/flywheel-io/public/jupyter-notebooks.git`.
 * Start your jupyter instance and `cd` to the cloned repository to open one of the notebooks.
+
+## Table of content 
+
+
+|     | Title        | Description             |
+| --- |:-------------|:------------------------|
+| 0 | [Template](https://gitlab.com/flywheel-io/public/jupyter-notebooks/-/blob/master/template.ipynb) | Template notebook to serve as reference for structuring notebooks in this repository |
+| 1 | [Add subjects to a collection](https://gitlab.com/flywheel-io/public/jupyter-notebooks/-/blob/master/add-to-collection-excluding-subjects-in-csv.ipynb )|  <ul><li>Get the project label and collection label (if you have one) you want to edit </li> <li>Parse CSV file that contain Subject Label you want to exclude or any restrain you are looking for </li>|
+| 2 | [List outdated gear rules and update gear rules for project(s) with latest gear version](https://gitlab.com/flywheel-io/public/jupyter-notebooks/-/blob/master/find-outdated-gear-rule-and-update-with-latest-version.ipynb)  | <ul><li> List all project(s) available and gear rules for the project  <br> <li>Functions :<br> a. `get_gear_latest_version(fw, gear_id)` function - To get the latest version of a gear <br> b. `cleanup_rule(rule, project=None)` function - Formulate gear rule by taking a rule input object  |
+| 3 | [Rename MoCo Series Acquisition Label](https://gitlab.com/flywheel-io/public/jupyter-notebooks/-/blob/master/rename-moco-and-acq-label.ipynb) | <ul><li> Rename MoCo series by adding '_moco' and run time <br><li>Functions : <br> a.  `get_scan_moco_label` : Identify the original scan label<br>b.  `modify_acq_name` : Modify Acquisition name based on the session timepoint<br>c.  `update_acq_label` : Update the acquisition label on the FW instances  |
+| 4 | [ Update Acquisition container timestamp (shown in UI) from Dicom Tag SeriesTime in Dicom file ](https://gitlab.com/flywheel-io/public/jupyter-notebooks/-/blob/master/edit-acquisition-timestamp.ipynb) | <ul><li>Update the Acquisition container timestamp (shown in UI) that is incorrect.<br><li>Functions :<br> a.  `get_updated_timestamp` : Get the updated timestamp <br>b.`modify_time` : Comparing the timestamp shows on the Acquisition container and SeriesTime in Dicom file <br>c.`update_container_timestamp` : Update the acquisition timestamp  <br> |
+
