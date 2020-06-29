@@ -22,6 +22,20 @@ If we feel that any of the minimum requirements are not met, our team may ask yo
 Beyond the minimum necessary requirements, we provide a recommended style guide.  Adhering to the recommended style guide increases the chances of the acceptance of your contribution.
 It will also likely reduce the amount of time between submission and acceptance, as we may either modify or request changes if we feel that it would singificantly enhance the readibility/clarity of the tutorial.
 
+## Issue labels
+
+The current list of issue labels are [here][link_labels] and include:
+
+* [![Bugs](https://img.shields.io/badge/-bugs-fc2929.svg)][link_bugs] *These issues point to problems in the project.*
+
+    If you find a new bug, please provide as much information as possible to recreate the error.
+    The [issue template][link_issue_template] will automatically populate any new issue you open, and contains information we've found to be helpful in addressing bug reports.
+    Please fill it out to the best of your ability!
+
+    If you experience the same bug as one already listed in an open issue, please add any additional information that you have as a comment.
+
+* [![Help Wanted](https://img.shields.io/badge/-help%20wanted-c2e0c6.svg)][link_helpwanted] *These issues contain a task that a member of the team has determined we need additional help with.*
+
 
 Outline
 Overview of the Repo
