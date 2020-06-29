@@ -26,8 +26,7 @@ It will also likely reduce the amount of time between submission and acceptance,
 
 The current list of issue labels are [here][link_labels] and include:
 
-* [![Bugs](https://img.shields.io/badge/-bugs-fc2929.svg)][link_bugs] *These issues point to problems in the project.*
-
+* ~"feature request"
     If you find a new bug, please provide as much information as possible to recreate the error.
     The [issue template][link_issue_template] will automatically populate any new issue you open, and contains information we've found to be helpful in addressing bug reports.
     Please fill it out to the best of your ability!
