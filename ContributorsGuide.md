@@ -81,6 +81,14 @@ https://docs.gitlab.com/ee/user/project/description_templates.html
 
 When contributing a new tutorial, we recommend that you familiarize yourself with the [git style workflow](https://guides.github.com/introduction/flow/index.html)
 
+### Contribution Workflow:
+
+- Verify that your contribution is not addressed by other issues or PRs
+- Ensure that your contribution meets the minimum contribution requirements
+- Provide an informative and appropriate name for the contribution file
+- Create a merge request with the `Tutorial Contribution` tag and fill out the contribution template
+
+
 ### Minimum contribution requirements:
 Your contribution must meet these minimum criteria to be considered for publication:
 - Include a brief summary and/or purpose of the notebook
@@ -100,14 +108,26 @@ Your contribution must meet these minimum criteria to be considered for publicat
 - Extensive comments, in the form of a walkthrough, explaining not only WHAT the code is doing, but WHY (And when appropriate, HOW)
 
 
-
-Workflow to report a bug or pull request:
-Git flow - how to do MR (basic command to include)
+## Bug Report
 
 
-https://guides.github.com/introduction/flow/index.html
+### Workflow to report a bug or pull request:
+- Verify (as best you can) that the bug is code-related.  Review the common support FAQ and ensure your proeblem isn't covered there
+- Generate an issue for the repository and use the "bug" label.  Fill in all fields in the template. 
 
 
-Notes:
-Add Contributing link on README
+## Tutorial Improvement
+
+### Tutorial improvement workflow
+- Create an issue with the label "Tutorial improvement".
+- Populate the fields in the template
+
+
+## Tutorials Request
+
+### Tutorial request workflow
+- Verify that the requested material is not covered in any of the existing tutorials
+- Create an issue with the lable "Tutorial request"
+- Populate the fields in the template
+
 
