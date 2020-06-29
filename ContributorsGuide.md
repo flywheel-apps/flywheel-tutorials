@@ -1,5 +1,7 @@
 ## Contributor license agreement
 
+These are just a placeholder copied and pasted from somewhere else.  We need to discuss what we want in this sectin
+
 By submitting code as an individual you agree to the
 [individual contributor license agreement](doc/legal/individual_contributor_license_agreement.md).
 By submitting code as an entity you agree to the
@@ -11,10 +13,26 @@ repository is licensed under Creative Commons:
 
 _This notice should stay as the first item in the CONTRIBUTING.md file._
 
+## Flywheel Tutorials
 
-## Contributor guidelines
+### Purpose:
+The flywheel tutorials repository is a collection of jupyter notebooks intended to be useful demonstrations of how to progamatically interface with flywheel,
+and preform tasks, curation, processing, and more, that may otherwise be time-consuming or cumbersome to do manually. These tutorials are designed to be helpful to any user on any instance.  In practice, this means that our tutorials can be easily generalized to multiple use cases, or cover a specific task that is commonly done by users across all instances.
 
-We welcome the contribution of tutorials that cover new topics, or expand on existing tutorials.
+### Contributor guidelines
+
+We welcome the contribution of tutorials that cover new topics, or expand on existing tutorials.  All contributions should be in the spirit of this repositories purpose.  This means that, rather than provide an example of how to do a very specific task to a very specific subset of data, make the example more generalizable.  For example, the following tutorial would not be inline with our purpose:
+- Retrieves subject "Sub-45"
+- Update metadata field 'birthday' to '01/02/03' using `subject.update_info({"birthday":"01/02/03"})`
+
+While the following would be more in-line:
+- Retrieves subjects in a given project based on some sort of customizable query
+- Loops through all subjects found in the query, performs checks if necessary
+- Creates a dictionary of metadata fields to change (determined by the user)
+- Sets the new metadata fields to their desired values, provided by a list or some other source, using: `subject.update_info(update_info_dict)`
+
+
+
 We strive to provide clear, practical examples that can be easily run by users with even minimal programming skill. (Do we?  Is this true?  Sometimes I Just start typing a sentence not knowing how it's going to end oh god it's happening again.)
 To this end, we provide a set of guidelines that we ask all contributors to follow.  The minimal contributor guidelines are the abosolute minimum necessary requirements for a tutorial contribution to be considered for publication on this repository.
 If we feel that any of the minimum requirements are not met, our team may ask you to revise the contribution.
@@ -22,30 +40,33 @@ If we feel that any of the minimum requirements are not met, our team may ask yo
 Beyond the minimum necessary requirements, we provide a recommended style guide.  Adhering to the recommended style guide increases the chances of the acceptance of your contribution.
 It will also likely reduce the amount of time between submission and acceptance, as we may either modify or request changes if we feel that it would singificantly enhance the readibility/clarity of the tutorial.
 
-## Issue labels
+### Issue labels
 
-The current list of issue labels are [here][https://gitlab.com/flywheel-io/public/flywheel-tutorials/-/labels] and include:
+The current list of issue labels are [here](https://gitlab.com/flywheel-io/public/flywheel-tutorials/-/labels) and include:
 
 
 - ~"Bug"  If you find a new bug, please provide as much information as possible to recreate the error.
-    The [issue template][link_issue_template] will automatically populate any new issue you open, and contains information we've found to be helpful in addressing bug reports.
+    The will automatically populate any new issue you open, and contains information we've found to be helpful in addressing bug reports.
     Please fill it out to the best of your ability If you experience the same bug as one already listed in an open issue, please add any additional information that you have as a comment.
+
+- ~"Tutorial Improvement"  If you have suggestions for how we can improve an existing tutorial by clarifying, expanding, or simply adding content to.
 
 - ~"Tutorial Contribution"  If you have your own tutorial notebook to submit for publication in this repository, add this label to your merge request.
     Please ensure that you've read and followed the instructions outlined in this document before submitting.
 
 - ~"Tutorial Request"  If you are unable to contribute yourself, but would like to request a tutorial on a specific topic, please use this tag.  
 
+- Should I add a tutorial feedback tag?
 
-Outline
-Overview of the Repo
-About
-Purpose of Flywheel-Tutorial
+
+
 
 
 Table of Contents 
 Ways to Contribute
-Report Bugs/Issues  || Ask Question or Answer Other’s Queries || Typo or Suggestions for Improvement
+Report Bugs/Issues  || Ask Question or Answer Other’s Queries || Tutorial Improvement || New Tutorial
+
+
 Guidelines to submit an issue:
 Verify that your issue is not being addressed by other issues or PRs
 Fulfill our requirements on What to include in the Complete a  bug report
@@ -56,26 +77,28 @@ Snapshot of the failing notebook in attachment
 What environment was being used (ex: ipynb, Colab or myBinder) and OS they are on if it is being run in the local machine
 https://docs.gitlab.com/ee/user/project/description_templates.html
 
-Submit your script notebook - Pull Request
-Minimum requirements?:
-Python3
-pip- installable libraries only
-Comments describing flow/execution
-All path/file references must be relative to the execution environment (No direct links like ‘/Users/davidparker/Documents/etc…’ that need to be changed manually for execution)
-No sensitive information (API-keys, etc)
-Should we put a length limit?
+## Tutorial Contribution
+
+When contributing a new tutorial, we recommend that you familiarize yourself with the [git style workflow](https://guides.github.com/introduction/flow/index.html)
+
+### Minimum contribution requirements:
+Your contribution must meet these minimum criteria to be considered for publication:
+- Include a brief summary and/or purpose of the notebook
+- The notebook should cover material not present in existing notebooks, or with minimal overlap
+  - Consider submitting your notebook as an "improvement" to an existing tuturial if there is significant content overlap.
+- Code must be python3 executable
+- Complete list of library imports, using default python or pip-installable libraries only
+- Comments at every major section of code and at the beginning of every function describing what it does.
+- All path/file references must be relative to the execution environment (No direct links like ‘/Users/myuser/Documents/etc…’ that need to be changed manually for execution).
+- No sensitive information (API-keys, etc)
+- Contribution must be in the form of a tutorial (i.e. do not just submit a function that takes a flywheel subject and does some processing.  Include something like a script showing how to find a subject, ensure it will work with the function, run the function, and then check to make sure it worked)
 
 
-What to include in your Notebook/Script 
-Prefer to IPYNB notebook
-Using ipynb or Google Colab refer to template for the formatting
-Summary and/or Purpose of the notebook
-Follow PEP-8 guidelines on your code with comments
-Checklist to submit a Pull Request/Merge Request
-Verify there is no existing notebook
-Make sure your code is running properly and has appropriate comments comment out the code accordingly
-The script must be in JupyterNotebook format
-Provide a helpful Pull Request tile to summarises what your contribution/commit does
+### Recommended style guidelines:
+- Prefer a jupyter notebook style contribution
+- Follow PEP-8 guidelines on your code with comments
+- Extensive comments, in the form of a walkthrough, explaining not only WHAT the code is doing, but WHY (And when appropriate, HOW)
+
 
 
 Workflow to report a bug or pull request:
