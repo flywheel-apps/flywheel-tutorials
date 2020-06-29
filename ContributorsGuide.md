@@ -17,9 +17,11 @@ _This notice should stay as the first item in the CONTRIBUTING.md file._
 
 ### Purpose:
 The flywheel tutorials repository is a collection of jupyter notebooks intended to be useful demonstrations of how to progamatically interface with flywheel,
-and preform tasks, curation, processing, and more, that may otherwise be time-consuming or cumbersome to do manually. These tutorials are designed to be helpful to any user on any instance.  In practice, this means that our tutorials can be easily generalized to multiple use cases, or cover a specific task that is commonly done by users across all instances.
+ preform tasks, curate/process data, and more, that may otherwise be time-consuming or cumbersome to do manually. These tutorials are designed to be helpful for any user on any instance.  In practice, this means that our tutorials can be easily generalized to multiple use cases, or cover a specific task that is commonly done by users across all instances.
 
-### Contributor guidelines
+## Contributor guidelines
+
+### General Guidelines:
 
 We welcome the contribution of tutorials that cover new topics, or expand on existing tutorials.  All contributions should be in the spirit of this repositories purpose.  This means that, rather than provide an example of how to do a very specific task to a very specific subset of data, make the example more generalizable.  For example, the following tutorial would not be inline with our purpose:
 - Retrieves subject "Sub-45"
