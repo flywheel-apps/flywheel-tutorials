@@ -24,16 +24,17 @@ It will also likely reduce the amount of time between submission and acceptance,
 
 ## Issue labels
 
-The current list of issue labels are [here][link_labels] and include:
+The current list of issue labels are [here][https://gitlab.com/flywheel-io/public/flywheel-tutorials/-/labels] and include:
 
-* ~"feature request"
-    If you find a new bug, please provide as much information as possible to recreate the error.
+
+- ~"Bug"  If you find a new bug, please provide as much information as possible to recreate the error.
     The [issue template][link_issue_template] will automatically populate any new issue you open, and contains information we've found to be helpful in addressing bug reports.
-    Please fill it out to the best of your ability!
+    Please fill it out to the best of your ability If you experience the same bug as one already listed in an open issue, please add any additional information that you have as a comment.
 
-    If you experience the same bug as one already listed in an open issue, please add any additional information that you have as a comment.
+- ~"Tutorial Contribution"  If you have your own tutorial notebook to submit for publication in this repository, add this label to your merge request.
+    Please ensure that you've read and followed the instructions outlined in this document before submitting.
 
-* [![Help Wanted](https://img.shields.io/badge/-help%20wanted-c2e0c6.svg)][link_helpwanted] *These issues contain a task that a member of the team has determined we need additional help with.*
+- ~"Tutorial Request"  If you are unable to contribute yourself, but would like to request a tutorial on a specific topic, please use this tag.  
 
 
 Outline
