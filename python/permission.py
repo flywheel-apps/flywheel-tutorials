@@ -1,70 +1,175 @@
+# Constant
+SITE_PERM_ORDER = ['user', 'developer', 'site admin']
+GROUP_PERM_ORDER = ['ro', 'rw', 'admin']
+PROJECT_MIN_PERM = ['containers_view_metadata', 'analyses_view_metadata', 'files_view_metadata','files_view_contents','files_download','tags_view','notes_view','project_permissions_view','gear_rules_view','data_views_view','session_templates_view','jobs_view']
+
 
 def check_user_permission(fw_client, min_reqs, group=None, project=None, show_info=True):
-
+    """Check if user has the right permission to proceed.
+    
+    Args:
+        fw_client (flywheel.client): A Flywheel API Client.
+        min_reqs (dict): Minimum requirements.
+        group (str): Group label. Default to None.
+        project (str): Project label. Default to None.
+        show_info (bool): Print out more information about compatible user permission. Default to True.
+        
+    Returns:
+        bool: True if user has the right permission, False otherwise 
+    
+    """
 
     has_perm = is_user_meet_min_perm(fw_client, min_reqs, group, project)
-
+    
+    # Print out compatible group and project if user's selections do not meet the requirements
     if show_info and not has_perm:
         list_compatible(fw_client, min_reqs)
+        
     return has_perm
 
-
 def is_user_meet_min_perm(fw_client, min_reqs, group=None, project=None):
+    """Check whether user meets the minimum permission
+    
+    Args:
+        fw_client(flywheel.client): A Flywheel API Client
+        min_reqs (dict): Minimum requirements.
+        group (str): Group label. Default to None.
+        project (str): Project label. Default to None.
+        
+    Returns:
+    bool: True if user meets the minimum permission, False otherwise
+    """
     user = fw_client.get_current_user()
     proj_reqs = list(set(min_reqs['project']) | set(PROJECT_MIN_PERM))
+    
+    
+    if has_site_perm(user, min_reqs):
+        return False
+    if group and not has_group_perm(fw_client, user,group, min_reqs['group']):
+        return False
+    if project and not has_project_perm(fw_client, user, project, proj_reqs):
+        return False
+    
+    # Return true if site, group and/or project permissions are met
+    return True
 
+    
+
+    
+def has_site_perm(user, min_reqs):
+    """Check if user has the right permission on the site container
+    
+    Args:
+        user (flywheel.user): Flywheel User modules
+        min_reqs (dict): Minimum requirements
+    
+    Returns:
+        bool: True if user meets the minimum site permission, False otherwise
+    
+    """
+    
     if SITE_PERM_ORDER.index(user['roles'][0]) >= SITE_PERM_ORDER.index(min_reqs['site']):
-        if group:
-            # group container
-            group_container = fw_client.lookup(group)
-            group_permission = fw_client.get_group_user_permission(group_container.id, user['_id'])
-            if GROUP_PERM_ORDER.index(group_permission['access']) >= GROUP_PERM_ORDER.index(min_reqs['group']):
-                if project:
-                    # Project container
-                    proj_reps = list(set(PROJECT_MIN_PERM) | set(min_reqs['project']))
-                    project_container = group_container.projects.find_first(f'label={project}')
-                    project_permission = fw_client.get_project_user_permission(project_container.id, user['_id'])
-                    role_perm = fw_client.get_role(project_permission['role_ids'][0])
-                    if set(role_perm['actions']).symmetric_difference(set(proj_reps)):
-                        # When there is a difference between what is needed
-                        return False
-                    else:
-                        return True
-                else:
-                    return True
-            else:
-                return False
-        else:
-            return True
+        return True
     else:
         return False
+    
+    
+def has_group_perm(fw_client, user, group, group_perm):
+    """Check if user has the right permission on the group container
+    
+    Args:
+        fw_client(flywheel.client): A Flywheel API Client
+        user (flywheel.user): Flywheel User modules
+        group (str): Group label
+        group_perm (list): Minimum group permission
+    
+    Returns:
+        bool: True if user meets the minimum group permission, False otherwise
+    
+    """
+    
+    group_container = fw_client.lookup(group)
+    group_permission = fw_client.get_group_user_permission(group_container.id, user['_id'])
+    
+    if GROUP_PERM_ORDER.index(group_permission['access']) >= GROUP_PERM_ORDER.index(group_perms):
+        return True
+    else:
+        return False
+    
+    
+def has_project_perm(fw_client, user, project, proj_reqs):
+    """Check if user has the right permission on the project container
+    
+    Args:
+        fw_client(flywheel.client): A Flywheel API Client
+        user (flywheel.user): Flywheel User modules
+        project (str): Project label
+        min_reqs (dict): Minimum requirements
+    
+    Returns:
+        bool: True if user meets the minimum project permission, False otherwise
+    
+    """
 
+    project_container = fw_client.projects.find_first(f'label={project}')
+    user_perms = fw_client.get_project_user_permission(project_container.id, user['_id'])
+    
+    user_actions = list()
+    
+    for role_id in user_perms['role_ids']:
+        role = fw_client.get_role(role_id)
+        if user_actions:
+            user_actions = list(set(user_actions) | set(role['actions']))
+        else:
+            user_actions = role['actions']
+            
+    if all(action in user_actions for action in proj_reqs):
+        return True
+    else:
+        return False
+    
+    
+    
+    
 
 def list_compatible(fw_client, min_reqs):
+    """Provide a list of compatible container that meets the minimum requirements
+    
+    Args:
+        fw_client(flywheel.client): A Flywheel API Client
+        min_reqs (dict): Minimum requirements
+
+    
+    """
     user = fw_client.get_current_user()
+    
+
     compatible_group = list()
     compatible_project = list()
 
-    for container in min_reqs:
+    for container, perms in min_reqs.items():
         if container == 'site':
-            if SITE_PERM_ORDER.index(user['roles'][0]) >= SITE_PERM_ORDER.index(min_reqs['site']):
-                log.info('You have the right site permission.')
-            else:
-                site_reqs = min_reqs['site']
+            
+            if not has_site_perm(user, min_reqs):
                 log.warning(
-                    f'Please contact your site admin to get at least {site_reqs} permission on your Flywheel Instance')
+                    f'Please contact your site admin to get at least {perms} permission on your Flywheel Instance')
+            else:
+                log.info('You have the right site permission.')
+            
+            
         elif container == 'group':
             for group in fw_client.groups():
-                group_permission = fw_client.get_group_user_permission(group.id, user['_id'])
-                if GROUP_PERM_ORDER.index(group_permission['access']) >= GROUP_PERM_ORDER.index(min_reqs['group']):
+                if has_group_perm(fw_client, user, group.id, perms):
                     compatible_group.append(group.label)
+                
+                    
         elif container == 'project':
+            proj_reqs = list(set(perms) | set(PROJECT_MIN_PERM))
             for project in fw_client.projects():
-                proj_reps = list(set(PROJECT_MIN_PERM) | set(min_reqs['project']))
-                project_permission = fw_client.get_project_user_permission(project.id, user['_id'])
-                role_perm = fw_client.get_role(project_permission['role_ids'][0])
-                if not set(role_perm['actions']).symmetric_difference(set(proj_reps)):
+                if has_project_perm(fw_client, user, project.label, proj_reqs):
                     compatible_project.append(project.label)
+                
+                
     if compatible_group:
         group_list = ', '.join(map(str, compatible_group))
         log.info(f'You have the minimum required permission on the following group(s) {group_list}')
