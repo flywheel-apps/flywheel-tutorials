@@ -1,7 +1,9 @@
+import logging
+
 # Constant
 SITE_PERM_ORDER = ['user', 
                    'developer', 
-                   'site admin']
+                   'site_admin']
 
 GROUP_PERM_ORDER = ['ro', 
                     'rw', 
