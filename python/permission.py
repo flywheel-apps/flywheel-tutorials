@@ -1,10 +1,27 @@
 # Constant
-SITE_PERM_ORDER = ['user', 'developer', 'site admin']
-GROUP_PERM_ORDER = ['ro', 'rw', 'admin']
-PROJECT_MIN_PERM = ['containers_view_metadata', 'analyses_view_metadata', 'files_view_metadata','files_view_contents','files_download','tags_view','notes_view','project_permissions_view','gear_rules_view','data_views_view','session_templates_view','jobs_view']
+SITE_PERM_ORDER = ['user', 
+                   'developer', 
+                   'site admin']
+
+GROUP_PERM_ORDER = ['ro', 
+                    'rw', 
+                    'admin']
+
+PROJECT_MIN_PERM = ['containers_view_metadata', 
+                    'analyses_view_metadata',
+                    'files_view_metadata',
+                    'files_view_contents',
+                    'files_download',
+                    'tags_view',
+                    'notes_view',
+                    'project_permissions_view',
+                    'gear_rules_view',
+                    'data_views_view',
+                    'session_templates_view',
+                    'jobs_view']
 
 
-def check_user_permission(fw_client, min_reqs, group=None, project=None, show_info=True):
+def check_user_permission(fw_client, min_reqs, group=None, project=None, show_compatible=True):
     """Check if user has the right permission to proceed.
     
     Args:
@@ -12,22 +29,22 @@ def check_user_permission(fw_client, min_reqs, group=None, project=None, show_in
         min_reqs (dict): Minimum requirements.
         group (str): Group label. Default to None.
         project (str): Project label. Default to None.
-        show_info (bool): Print out more information about compatible user permission. Default to True.
+        show_compatible (bool): Print out more information about compatible user permission. Default to True.
         
     Returns:
-        bool: True if user has the right permission, False otherwise 
+        bool: Returns True if user has the right permission, False otherwise 
     
     """
 
-    has_perm = is_user_meet_min_perm(fw_client, min_reqs, group, project)
+    has_perm = has_min_permissions(fw_client, min_reqs, group, project)
     
     # Print out compatible group and project if user's selections do not meet the requirements
-    if show_info and not has_perm:
+    if show_compatible and not has_perm:
         list_compatible(fw_client, min_reqs)
         
     return has_perm
 
-def is_user_meet_min_perm(fw_client, min_reqs, group=None, project=None):
+def has_min_permissions(fw_client, min_reqs, group=None, project=None):
     """Check whether user meets the minimum permission
     
     Args:
@@ -37,7 +54,7 @@ def is_user_meet_min_perm(fw_client, min_reqs, group=None, project=None):
         project (str): Project label. Default to None.
         
     Returns:
-    bool: True if user meets the minimum permission, False otherwise
+    bool: Returns True if user meets the minimum permission, False otherwise
     """
     user = fw_client.get_current_user()
     proj_reqs = list(set(min_reqs['project']) | set(PROJECT_MIN_PERM))
@@ -50,7 +67,7 @@ def is_user_meet_min_perm(fw_client, min_reqs, group=None, project=None):
     if project and not has_project_perm(fw_client, user, project, proj_reqs):
         return False
     
-    # Return true if site, group and/or project permissions are met
+    # Returns true if site, group and/or project permissions are met
     return True
 
     
@@ -64,7 +81,7 @@ def has_site_perm(user, min_reqs):
         min_reqs (dict): Minimum requirements
     
     Returns:
-        bool: True if user meets the minimum site permission, False otherwise
+        bool: Returns True if user meets the minimum site permission, False otherwise
     
     """
     
@@ -84,7 +101,7 @@ def has_group_perm(fw_client, user, group, group_perm):
         group_perm (list): Minimum group permission
     
     Returns:
-        bool: True if user meets the minimum group permission, False otherwise
+        bool: Returns True if user meets the minimum group permission, False otherwise
     
     """
     
@@ -107,7 +124,7 @@ def has_project_perm(fw_client, user, project, proj_reqs):
         min_reqs (dict): Minimum requirements
     
     Returns:
-        bool: True if user meets the minimum project permission, False otherwise
+        bool: Returns True if user meets the minimum project permission, False otherwise
     
     """
 
