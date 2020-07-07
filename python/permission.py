@@ -1,5 +1,9 @@
 import logging
 
+# Instantiate a logger
+logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
+log = logging.getLogger('root')
+
 # Constant
 SITE_PERM_ORDER = ['user', 
                    'developer', 
@@ -22,7 +26,7 @@ PROJECT_MIN_PERM = ['containers_view_metadata',
                     'session_templates_view',
                     'jobs_view']
 
-
+# Functions
 def check_user_permission(fw_client, min_reqs, group=None, project=None, show_compatible=True):
     """Check if user has the right permission to proceed.
     
@@ -110,7 +114,7 @@ def has_group_perm(fw_client, user, group, group_perm):
     group_container = fw_client.lookup(group)
     group_permission = fw_client.get_group_user_permission(group_container.id, user['_id'])
     
-    if GROUP_PERM_ORDER.index(group_permission['access']) >= GROUP_PERM_ORDER.index(group_perms):
+    if GROUP_PERM_ORDER.index(group_permission['access']) >= GROUP_PERM_ORDER.index(group_perm):
         return True
     else:
         return False
