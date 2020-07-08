@@ -61,14 +61,6 @@ The current list of issue labels are [here](https://gitlab.com/flywheel-io/publi
 - Should I add a tutorial feedback tag?
 
 
-
-
-
-Table of Contents 
-Ways to Contribute
-Report Bugs/Issues  || Ask Question or Answer Other’s Queries || Tutorial Improvement || New Tutorial
-
-
 Guidelines to submit an issue:
 Verify that your issue is not being addressed by other issues or PRs
 Fulfill our requirements on What to include in the Complete a  bug report
@@ -77,7 +69,6 @@ Name of the file
 Provide a quick summary of the bug/issue
 Snapshot of the failing notebook in attachment
 What environment was being used (ex: ipynb, Colab or myBinder) and OS they are on if it is being run in the local machine
-https://docs.gitlab.com/ee/user/project/description_templates.html
 
 ## Tutorial Contribution
 
@@ -88,7 +79,7 @@ When contributing a new tutorial, we recommend that you familiarize yourself wit
 - Verify that your contribution is not addressed by other issues or PRs
 - Ensure that your contribution meets the minimum contribution requirements
 - Provide an informative and appropriate name for the contribution file
-- Create a merge request with the `Tutorial Contribution` tag and fill out the contribution template
+- Create a merge request with the ~"Tutorial Contribution" tag and fill out the contribution template
 
 
 ### Minimum contribution requirements:
@@ -106,7 +97,7 @@ Your contribution must meet these minimum criteria to be considered for publicat
 
 ### Recommended style guidelines:
 - Prefer a jupyter notebook style contribution
-- Follow PEP-8 guidelines on your code with comments
+- Follow PEP-8 guidelines
 - Extensive comments, in the form of a walkthrough, explaining not only WHAT the code is doing, but WHY (And when appropriate, HOW)
 
 
@@ -114,22 +105,24 @@ Your contribution must meet these minimum criteria to be considered for publicat
 
 
 ### Workflow to report a bug or pull request:
-- Verify (as best you can) that the bug is code-related.  Review the common support FAQ and ensure your proeblem isn't covered there
-- Generate an issue for the repository and use the "bug" label.  Fill in all fields in the template. 
+- Verify (as best you can) that the bug is code-related.  Review the common support FAQ and ensure your problem isn't covered there
+- Generate an issue for the repository and use the ~"Bug" label.
+- Populate all fields in the template. 
 
 
 ## Tutorial Improvement
 
 ### Tutorial improvement workflow
-- Create an issue with the label "Tutorial improvement".
+- Verify (as best you can) that the improvement is not covered in an existing tutorial.
+- Create an issue with the label ~"Tutorial Improvement".
 - Populate the fields in the template
 
 
 ## Tutorials Request
 
 ### Tutorial request workflow
-- Verify that the requested material is not covered in any of the existing tutorials
-- Create an issue with the lable "Tutorial request"
+- Verify (as best you can) that the material is not covered in an existing tutorial.
+- Create an issue with the lable ~"Tutorial Request"
 - Populate the fields in the template
 
 
