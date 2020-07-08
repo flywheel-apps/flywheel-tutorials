@@ -16,8 +16,7 @@ _This notice should stay as the first item in the CONTRIBUTING.md file._
 ## Flywheel Tutorials
 
 ### Purpose:
-The flywheel tutorials repository is a collection of jupyter notebooks intended to be useful demonstrations of how to progamatically interface with flywheel,
- preform tasks, curate/process data, and more, that may otherwise be time-consuming or cumbersome to do manually. These tutorials are designed to be helpful for any user on any instance.  In practice, this means that our tutorials can be easily generalized to multiple use cases, or cover a specific task that is commonly done by users across all instances.
+The flywheel tutorials repository is a collection of jupyter notebooks intended to be useful demonstrations of how to progamatically interface with flywheel,preform tasks, curate/process data, and more, that may otherwise be time-consuming or cumbersome to do manually. These tutorials are designed to be helpful for any user on any instance.  In practice, this means that our tutorials can be easily generalized to multiple use cases, or cover a specific task that is commonly done by users across all instances.  This goes beyond simple sdk "examples" which may show the correct syntax used to call a function, and strives to provide a more detailed story about where and how these functions might be used.  We hope to demonstrate the potential of interfacing with flywheel using the SDK, to empower users to tackle potentially difficult problems with confidence, and to inspire users to see new use-cases they may not have otherwise considered.
 
 ## Contributor guidelines
 
