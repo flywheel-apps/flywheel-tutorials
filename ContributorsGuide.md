@@ -61,15 +61,6 @@ The current list of issue labels are [here](https://gitlab.com/flywheel-io/publi
 - Should I add a tutorial feedback tag?
 
 
-Guidelines to submit an issue:
-Verify that your issue is not being addressed by other issues or PRs
-Fulfill our requirements on What to include in the Complete a  bug report
-How to submit/make a bug report (Put this as a template file)
-Name of the file
-Provide a quick summary of the bug/issue
-Snapshot of the failing notebook in attachment
-What environment was being used (ex: ipynb, Colab or myBinder) and OS they are on if it is being run in the local machine
-
 ## Tutorial Contribution
 
 When contributing a new tutorial, we recommend that you familiarize yourself with the [git style workflow](https://guides.github.com/introduction/flow/index.html)
