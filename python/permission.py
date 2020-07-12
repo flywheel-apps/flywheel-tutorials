@@ -63,7 +63,6 @@ def has_min_permissions(fw_client, min_reqs, group=None, project=None):
     bool: Returns True if user meets the minimum permission, False otherwise
     """
     user = fw_client.get_current_user()
-    proj_reqs = list(set(min_reqs['project']) | set(PROJECT_MIN_PERM))
     
     
     if has_site_perm(user, min_reqs):
@@ -71,6 +70,8 @@ def has_min_permissions(fw_client, min_reqs, group=None, project=None):
     if group and not has_group_perm(fw_client, user,group, min_reqs['group']):
         return False
     if project and not has_project_perm(fw_client, user, project, proj_reqs):
+        proj_reqs = list(set(min_reqs['project']) | set(PROJECT_MIN_PERM))
+
         return False
     
     # Returns true if site, group and/or project permissions are met
