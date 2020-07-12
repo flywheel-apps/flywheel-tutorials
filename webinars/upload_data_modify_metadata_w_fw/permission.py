@@ -26,6 +26,7 @@ PROJECT_MIN_PERM = ['containers_view_metadata',
                     'session_templates_view',
                     'jobs_view']
 
+
 # Functions
 def check_user_permission(fw_client, min_reqs, group=None, project=None, show_compatible=True):
     """Check if user has the right permission to proceed.
@@ -63,14 +64,13 @@ def has_min_permissions(fw_client, min_reqs, group=None, project=None):
     bool: Returns True if user meets the minimum permission, False otherwise
     """
     user = fw_client.get_current_user()
-    proj_reqs = list(set(min_reqs['project']) | set(PROJECT_MIN_PERM))
     
     
     if has_site_perm(user, min_reqs):
         return False
     if group and not has_group_perm(fw_client, user,group, min_reqs['group']):
         return False
-    if project and not has_project_perm(fw_client, user, project, proj_reqs):
+    if project and not has_project_perm(fw_client, user, project, min_reqs['project']):
         return False
     
     # Returns true if site, group and/or project permissions are met
@@ -120,22 +120,25 @@ def has_group_perm(fw_client, user, group, group_perm):
         return False
     
     
-def has_project_perm(fw_client, user, project, proj_reqs):
+def has_project_perm(fw_client, user, project, min_proj_reqs):
     """Check if user has the right permission on the project container
     
     Args:
         fw_client(flywheel.client): A Flywheel API Client
         user (flywheel.user): Flywheel User modules
         project (str): Project label
-        min_reqs (dict): Minimum requirements
+        min_proj_reqs (dict): Minimum project requirements/actions
     
     Returns:
         bool: Returns True if user meets the minimum project permission, False otherwise
     
     """
-
+    
     project_container = fw_client.projects.find_first(f'label={project}')
     user_perms = fw_client.get_project_user_permission(project_container.id, user['_id'])
+    
+    # Combine all required actions 
+    proj_reqs = list(set(min_proj_reqs) | set(PROJECT_MIN_PERM))
     
     user_actions = list()
     
