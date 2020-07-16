@@ -66,7 +66,7 @@ def has_min_permissions(fw_client, min_reqs, group=None, project=None):
     user = fw_client.get_current_user()
     
     
-    if has_site_perm(user, min_reqs):
+    if not has_site_perm(user, min_reqs):
         return False
     if group and not has_group_perm(fw_client, user,group, min_reqs['group']):
         return False
@@ -186,7 +186,7 @@ def list_compatible(fw_client, min_reqs):
         elif container == 'group':
             for group in fw_client.groups():
                 if has_group_perm(fw_client, user, group.id, perms):
-                    compatible_group.append(group.label)
+                    compatible_group.append(group.id)
                 
                     
         elif container == 'project':
