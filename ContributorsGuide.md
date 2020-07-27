@@ -74,34 +74,46 @@ click on the ‘Fork’ button near the top right of the page. This creates a co
 
 ***Clone your fork of the flywheel tutorials repo from your GitLab account to your local disk:***
 
+```bash
 $ git clone git@gitlab.com:your-login/flywheel-tutorials.git 
 $ cd flywheel-tutorials
+```
 
 ***Add the upstream remote:*** 
 
 This saves a reference to the main flywheel tutorials repository, which you can use to keep your repository synchronized with the latest changes:
 
+```bash
 $ git remote add upstream https://gitlab.com/flywheel-io/public/flywheel-tutorials.git
+```
 
 You should now have a working installation of flywheel tutorials, and your git repository properly configured. The next steps now describe the process of modifying code and submitting a PR:
 
 ***Synchronize your master branch with the upstream master branch***
 
+```bash
 $ git checkout master
 $ git pull upstream master
+```
 
 ***Create a feature branch to hold your development changes:***
 
+```bash
 $ git checkout -b my_feature
+```
 and start making changes. Always use a feature branch. It’s good practice to never work on the master branch!
 
 Develop the feature on your feature branch on your computer, using Git to do the version control. When you’re done editing, add changed files using git add and then git commit:
 
+```bash
 $ git add modified_files
 $ git commit
+```
 to record your changes in Git, then push the changes to your GitLab account with:
 
+```bash
 $ git push -u origin my_feature
+```
 Follow these instructions to create a pull request from your fork. This will send an email to the committers. You may want to consider sending an email to the mailing list for more visibility.
 
 
