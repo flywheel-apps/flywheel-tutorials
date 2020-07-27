@@ -4,15 +4,6 @@
 - please provide a brief summary of the error:
 
 
-## User Information:
-#### Please provide a link to your flywheel instance and your username
-- flywheel instance:
-- username: 
-
-#### Please open a terminal on your computer, type "fw status", press enter, and paste the output of that command here:
-- output:
-
-
 ## Tutorial Information:
 
 #### Please paste the link to the tutorial notebook file you were running

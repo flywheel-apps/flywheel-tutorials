@@ -9,7 +9,7 @@
 - flywheel instance:
 - username: 
 
-## Tutorial Informatino
+## Tutorial Information
 
 #### Please provide a detailed description of the problem:
 
