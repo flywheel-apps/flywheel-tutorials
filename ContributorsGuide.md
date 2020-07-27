@@ -119,7 +119,7 @@ Follow these instructions to create a pull request from your fork. This will sen
 
 #### Learning git:
 
-The Git documentation and http://try.GitLab.io are excellent resources to get started with git, and understanding all of the commands shown here.
+The Git documentation and http://try.github.io are excellent resources to get started with git, and understanding all of the commands shown here.
 
 #### Pull request checklist
 Before a PR can be merged, it needs to be approved by two core developers. Please prefix the title of your pull request with [MRG] if the contribution is complete and should be subjected to a detailed review. An incomplete contribution – where you expect to do more work before receiving a full review – should be prefixed [WIP] (to indicate a work in progress) and changed to [MRG] when it matures. WIPs may be useful to: indicate you are working on something to avoid duplicated work, request broad review of functionality or API, or seek collaborators. WIPs often benefit from the inclusion of a task list in the PR description.
