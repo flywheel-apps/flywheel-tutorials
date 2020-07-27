@@ -51,14 +51,68 @@ The current list of issue labels are [here](https://gitlab.com/flywheel-io/publi
 
 ## Tutorial Contribution
 
-When contributing a new tutorial, we recommend that you familiarize yourself with the [git style workflow](https://guides.github.com/introduction/flow/index.html)
+When contributing a new tutorial, we recommend that you familiarize yourself with the [git style workflow](https://guides.GitLab.com/introduction/flow/index.html)
 
 ### Contribution Workflow:
 
 - Verify that your contribution is not addressed by other issues or PRs
-- Ensure that your contribution meets the minimum contribution requirements
+- Fork the tutorials repository and begin work on new feature branch
+- Ensure that your contribution meets the [minimum contribution requirements](minimum-contribution-requirements)
 - Provide an informative and appropriate name for the contribution file
 - Create a merge request with the ~"Tutorial Contribution" tag and fill out the contribution template
+
+### Forking and developing
+The preferred way to contribute to flywheel tutorials is to fork the main repository on GitLab, then submit a “pull request” (PR).
+
+In the first few steps, we explain how to locally install flywheel tutorials, and how to set up your git repository:
+
+***Create an account on GitLab if you do not already have one.***
+
+***Fork the project repository:***
+
+click on the ‘Fork’ button near the top right of the page. This creates a copy of the code under your account on the GitLab user account. For more details on how to fork a repository see this guide.
+
+***Clone your fork of the flywheel tutorials repo from your GitLab account to your local disk:***
+
+$ git clone git@gitlab.com:your-login/flywheel-tutorials.git 
+$ cd flywheel-tutorials
+
+***Add the upstream remote:*** 
+
+This saves a reference to the main flywheel tutorials repository, which you can use to keep your repository synchronized with the latest changes:
+
+$ git remote add upstream https://gitlab.com/flywheel-io/public/flywheel-tutorials.git
+
+You should now have a working installation of flywheel tutorials, and your git repository properly configured. The next steps now describe the process of modifying code and submitting a PR:
+
+***Synchronize your master branch with the upstream master branch***
+
+$ git checkout master
+$ git pull upstream master
+
+***Create a feature branch to hold your development changes:***
+
+$ git checkout -b my_feature
+and start making changes. Always use a feature branch. It’s good practice to never work on the master branch!
+
+Develop the feature on your feature branch on your computer, using Git to do the version control. When you’re done editing, add changed files using git add and then git commit:
+
+$ git add modified_files
+$ git commit
+to record your changes in Git, then push the changes to your GitLab account with:
+
+$ git push -u origin my_feature
+Follow these instructions to create a pull request from your fork. This will send an email to the committers. You may want to consider sending an email to the mailing list for more visibility.
+
+
+#### Learning git:
+
+The Git documentation and http://try.GitLab.io are excellent resources to get started with git, and understanding all of the commands shown here.
+
+#### Pull request checklist
+Before a PR can be merged, it needs to be approved by two core developers. Please prefix the title of your pull request with [MRG] if the contribution is complete and should be subjected to a detailed review. An incomplete contribution – where you expect to do more work before receiving a full review – should be prefixed [WIP] (to indicate a work in progress) and changed to [MRG] when it matures. WIPs may be useful to: indicate you are working on something to avoid duplicated work, request broad review of functionality or API, or seek collaborators. WIPs often benefit from the inclusion of a task list in the PR description.
+
+In order to ease the reviewing process, we recommend that your contribution complies with the [minimum submission requirements](minimum-contribution-requirements). 
 
 
 ### Minimum contribution requirements:
