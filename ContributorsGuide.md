@@ -87,7 +87,7 @@ This saves a reference to the main flywheel tutorials repository, which you can 
 $ git remote add upstream https://gitlab.com/flywheel-io/public/flywheel-tutorials.git
 ```
 
-You should now have a working installation of flywheel tutorials, and your git repository properly configured. The next steps now describe the process of modifying code and submitting a PR:
+You should now have a working installation of flywheel tutorials, and your git repository properly configured. The next steps now describe the process of modifying code and submitting a MR:
 
 ***Synchronize your master branch with the upstream master branch***
 
