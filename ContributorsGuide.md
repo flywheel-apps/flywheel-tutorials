@@ -96,7 +96,7 @@ $ git checkout master
 $ git pull upstream master
 ```
 
-***Create a feature branch to hold your development changes:***
+***Create a feature branch to hold your development changes (replacing MY_FEATURE with a descriptive name for the feature you are contributing; e.g., accessing-project-metadata):***
 
 ```bash
 $ git checkout -b MY_FEATURE
