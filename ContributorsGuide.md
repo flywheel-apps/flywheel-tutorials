@@ -141,7 +141,7 @@ Your contribution must meet these minimum criteria to be considered for publicat
 
 ### Recommended style guidelines:
 - Prefer a jupyter notebook style contribution
-- Follow PEP-8 guidelines
+- Follow [PEP-8](https://www.python.org/dev/peps/pep-0008/) guidelines. For the most part, [Black](https://pypi.org/project/black/), a code formatter, will get you there.
 - Extensive comments, in the form of a walkthrough, explaining not only WHAT the code is doing, but WHY (And when appropriate, HOW)
 
 
