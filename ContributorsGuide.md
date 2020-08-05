@@ -16,7 +16,7 @@ We welcome the contribution of tutorials that cover new topics, or expand on exi
 - Retrieves subject "Sub-45"
 - Update metadata field 'birthday' to '01/02/03' using `subject.update_info({"birthday":"01/02/03"})`
 
-While the following would be more in-line:
+While the following would be more inline:
 - Retrieves subjects in a given project based on some sort of customizable query
 - Loops through all subjects found in the query, performs checks if necessary
 - Creates a dictionary of metadata fields to change (determined by the user)
