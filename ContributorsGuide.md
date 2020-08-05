@@ -99,7 +99,7 @@ $ git pull upstream master
 ***Create a feature branch to hold your development changes:***
 
 ```bash
-$ git checkout -b my_feature
+$ git checkout -b MY_FEATURE
 ```
 and start making changes. Always use a feature branch. It’s good practice to never work on the master branch!
 
