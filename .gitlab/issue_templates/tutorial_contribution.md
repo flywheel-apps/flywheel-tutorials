@@ -12,7 +12,7 @@
 #### Please describe the problem this tutorial addresses:
 
 
-#### Please add any additional background/motivation/justifaction for including this tutorial:
+#### Please add any additional background/motivation/justification for including this tutorial:
 
 
 #### Please include any relevant screenshots, or a snapshot of the notebook:
