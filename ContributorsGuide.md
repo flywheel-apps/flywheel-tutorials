@@ -62,7 +62,7 @@ When contributing a new tutorial, we recommend that you familiarize yourself wit
 - Create a merge request with the ~"Tutorial Contribution" tag and fill out the contribution template
 
 ### Forking and developing
-The preferred way to contribute to flywheel tutorials is to fork the main repository on GitLab, then submit a “pull request” (PR).
+The preferred way to contribute to flywheel tutorials is to fork the main repository on GitLab, then submit a “merge request” (MR).
 
 In the first few steps, we explain how to locally install flywheel tutorials, and how to set up your git repository:
 
