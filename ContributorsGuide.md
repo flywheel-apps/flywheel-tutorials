@@ -135,7 +135,7 @@ Your contribution must meet these minimum criteria to be considered for publicat
 - Code must be python3 executable
 - Complete list of library imports, using only default python or pip-installable libraries
 - All path/file references must be relative to the execution environment (No direct links like ‘/Users/myuser/Documents/etc…’ that need to be changed manually for execution).
-- No sensitive information (API-keys, etc)
+- No sensitive information (API-keys, PHI, protected data, etc.)
 - Contribution must be in the form of a tutorial (i.e. do not just submit a function that takes a flywheel subject and does some processing.  Include something like a script showing how to find a subject, ensure it will work with the function, run the function, and then check to make sure it worked)
 
 
