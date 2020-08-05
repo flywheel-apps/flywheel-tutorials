@@ -101,7 +101,7 @@ $ git pull upstream master
 ```bash
 $ git checkout -b MY_FEATURE
 ```
-and start making changes. Always use a feature branch. It’s good practice to never work on the master branch!
+and start making changes. Always use a feature branch. PROTIP: It’s good practice to never work on the master branch!
 
 Develop the feature on your feature branch on your computer, using Git to do the version control. When you’re done editing, add changed files using git add and then git commit:
 
