@@ -9,7 +9,7 @@
 #### Please paste the link to the tutorial notebook file you were running
 - url: 
 
-#### Please provide what environment was being used (ex: Jupyter, Colab, myBinder) or OS and version if it was run in the local machine
+#### Please provide what environment was being used (e.g.: Jupyter, Colab, Binder) or OS and version if it was run on your local machine
 - environment:
 
 
