@@ -20,6 +20,6 @@
 - How do you currently address this issue?
 
 #### Please provide example data that this tutorial could be tested on:
-- This can be a link to a flyhweel session, or example data online.
+- This can be a link to a Flywheel session, or example data online.
 
 #### Please provide any additional information you feel would be helpful:
