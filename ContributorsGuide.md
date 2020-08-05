@@ -114,7 +114,7 @@ to record your changes in Git, then push the changes to your GitLab account with
 ```bash
 $ git push -u origin MY_FEATURE
 ```
-Follow these instructions to create a pull request from your fork. This will send an email to the committers. You may want to consider sending an email to the mailing list for more visibility.
+Follow these instructions to create a merge request from your fork. This will send an email to the committers. You may want to consider sending an email to the mailing list for more visibility.
 
 
 #### Learning git:
