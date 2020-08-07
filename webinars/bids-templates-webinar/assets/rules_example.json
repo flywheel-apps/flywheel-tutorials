@@ -1,0 +1,37 @@
+{
+"id": "bids_anat_file",
+"template": "anat_file",
+"where": {
+    "container_type": "file",
+    "parent_container_type": "acquisition",
+    "file.type": {
+        "$in": [
+            "nifti",
+            "NIfTI"
+        ]
+    },
+    "file.classification.Intent": {
+        "$in" : [ "Structural" ]
+    },
+    "acquisition.label": {
+        "$regex": ".*(anat(_.+|$))"
+    }
+    },
+"initialize": {
+    "Acq": {
+        "acquisition.label": {
+            "$regex": "(^|_)acq-(?P<value>.*?)(_(acq|ce|dir|echo|mod|proc|rec|recording|run|task)-|$|_)"
+        }
+    },
+    "Mod": {
+        "acquisition.label": {
+            "$regex": "(^|_)mod-(?P<value>.*?)(_(acq|ce|dir|echo|mod|proc|rec|recording|run|task)-|$|_)"
+        }
+    },
+    "Modality": {
+        "acquisition.label": {
+            "$regex": ".*anat-(?P<value>.+?)(_)"
+        }
+    }
+    }
+}

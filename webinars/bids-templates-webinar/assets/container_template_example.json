@@ -1,0 +1,51 @@
+{"anat_file": {
+   "description": "BIDS anat file template",
+   "properties": {
+      "Filename": {
+         "type": "string",
+         "title": "Filename",
+         "default": "",
+         "minLength": 1,
+         "auto_update": "sub-{subject.code}[_ses-{session.info.BIDS.Label}][_acq-{file.info.BIDS.Acq}][_ce-{file.info.BIDS.Ce}][_rec-{file.info.BIDS.Rec}][_run-{file.info.BIDS.Run}][_mod-{file.info.BIDS.Mod}]_{file.info.BIDS.Modality}{ext}"
+      },
+      "Folder": {
+         "type": "string",
+         "title": "Folder",
+         "default": "anat"
+      },
+      "Path": {
+         "type": "string",
+         "title": "Path",
+         "default": "",
+         "auto_update": "sub-{subject.code}[/ses-{session.info.BIDS.Label}]/{file.info.BIDS.Folder}"
+      },
+      "Acq": {
+         "$ref": "#/definitions/Acq"
+      },
+      "Ce": {
+         "$ref": "#/definitions/Ce"
+      },
+      "Rec": {
+         "$ref": "#/definitions/Rec"
+      },
+      "Run": {
+         "$ref": "#/definitions/Run"
+      },
+      "Mod": {
+         "$ref": "#/definitions/Mod"
+      },
+      "Modality": {
+         "type": "string",
+         "title": "Modality Label",
+         "default": "",
+         "enum": [
+            "T1w",
+            "T2w"
+         ]
+      }
+      },
+      "required": [
+         "Filename",
+         "Modality"
+      ]
+}}

@@ -1,0 +1,35 @@
+{
+  "extends": "bids-v1",
+  "description": "Additional rules for matching project data",
+  "definitions": {
+  },
+  "exclude_rules": [
+    "bids_anat_file"
+  ],
+  "rules": [
+    {
+      "id": "bids_anat_file_extended",
+      "template": "anat_file",
+      "where": {
+        "container_type": "file",
+        "parent_container_type": "acquisition",
+        "file.type": {
+          "$in": ["nifti", "NIfTI"]
+        },
+        "file.classification.Measurement": {
+          "$in": [ "T1", "PD", "T2" ]
+        },
+        "file.classification.Intent": {
+          "$in" : [ "Structural" ]
+        }
+      },
+      "initialize": {
+        "Acq": {
+            "acquisition.label": {
+                "$regex": "(^|_)acq-(?P<value>.*?)(_(acq|ce|dir|echo|mod|proc|rec|recording|run|task)-|$|_)"
+            }
+        }
+      }
+    }
+  ]
+}
