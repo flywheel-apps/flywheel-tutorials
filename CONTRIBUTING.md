@@ -43,9 +43,6 @@ The current list of issue labels are [here](https://gitlab.com/flywheel-io/publi
 
 - ~"Tutorial Improvement"  If you have suggestions for how we can improve an existing tutorial by clarifying, expanding, or simply adding content to.
 
-- ~"Tutorial Contribution"  If you have your own tutorial notebook to submit for publication in this repository, add this label to your merge request.
-    Please ensure that you've read and followed the instructions outlined in this document before submitting.
-
 - ~"Tutorial Request"  If you are unable to contribute yourself, but would like to request a tutorial on a specific topic, please use this tag.  
 
 
