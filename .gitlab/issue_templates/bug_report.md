@@ -19,7 +19,7 @@
 - cell:
 - line:
 
-#### Please paste all output from the cell in which the error occured
+#### Please paste all output from the cell in which the error occurred
 - Please include both the error message and any outputs from the cell leading up to the error message:
 
 
