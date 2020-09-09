@@ -135,6 +135,8 @@ def has_project_perm(fw_client, user, project, min_proj_reqs):
     """
     
     project_container = fw_client.projects.find_first(f'label={project}')
+    if not project_container:
+        raise ValueError(f'No project found labelled: {project}')    
     user_perms = fw_client.get_project_user_permission(project_container.id, user['_id'])
     
     # Combine all required actions 
