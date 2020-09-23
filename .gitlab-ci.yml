@@ -21,7 +21,7 @@ variables:
 
 
 test:convert:
-  stage:test
+  stage: test
   script:
     - cd ./python
     - for FILE in *.ipynb; jupyter nbconvert --output-dir='./docs' --to html $FILE
