@@ -22,6 +22,8 @@ variables:
 .python:
   image: python:${PYTHON_VERSION}
 
+  # Change pip's cache directory to be inside the project directory since we can
+  # only cache local items.
   variables:
     PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
     PYTHONUSERBASE: "$CI_PROJECT_DIR/.cache/user-site"
@@ -35,13 +37,14 @@ variables:
       - .cache/pip
       - .cache/user-site/
 
-
   before_script:
-    - export PATH="$PATH:$PYTHONUSERBASE/bin"
-    - python -V
-    - pip install --user jupyter notebook 
-    - pip install --user nbconvert
-
+  - export PATH="$PATH:$PYTHONUSERBASE/bin"
+  - mkdir -p .cache/user-site/
+  - python -V
+  # Install dependencies to the --user site
+  - pip install --user jupyter notebook 
+  - pip install --user nbconvert
+  - pip install --user pytest pytest-cov pylint pycodestyle twine mypy black sphinx sphinx-rtd-theme
 
 
 
@@ -49,7 +52,6 @@ test:convert:
   extends: .python
   stage: test
   script:
-    - echo $CI_PROJECT_DIR
     - cd ./python
     - ls
     - for FILE in *.ipynb; do jupyter nbconvert --output-dir='../docs' --to html $FILE; done
