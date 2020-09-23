@@ -45,10 +45,11 @@ variables:
   - pip install --user jupyter notebook 
   - pip install --user nbconvert
   - pip install --user pytest pytest-cov pylint pycodestyle twine mypy black sphinx sphinx-rtd-theme
-  - cd $HOME/Library/Jupyter/nbconvert  # mac, other platforms dunno
-  - mv templates templates-tmp  # empty
-  - ln -s .../site-packages/share/jupyter/nbconvert/templates .
-  - ls templates/
+  - cd ./Jupyter/nbconvert  # mac, other platforms dunno
+  - ls
+  # - mv templates templates-tmp  # empty
+  # - ln -s .../site-packages/share/jupyter/nbconvert/templates .
+  # - ls templates/
 
 
 
