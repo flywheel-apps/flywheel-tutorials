@@ -36,21 +36,18 @@ test:convert:
   extends: .python
   stage: test
   script:
-    - cd ./python
-    - for FILE in *.ipynb; do jupyter nbconvert --output-dir='../docs' --to html $FILE; done
-  artifacts:
-    paths:
-      - ../doc
+    - pwd
+    - cd $HOME/Library/Jupyter/nbconvert
 
-# Build the doc and save artifacts
-test:doc:
-  extends: .python
-  stage: test
-  only:
-    variables:
-      - $DOC == "true"
-  script:
-    - sphinx-build $DOC_ARGS $DOC_SOURCE doc
-  artifacts:
-    paths:
-      - doc
+# # Build the doc and save artifacts
+# test:doc:
+#   extends: .python
+#   stage: test
+#   only:
+#     variables:
+#       - $DOC == "true"
+#   script:
+#     - sphinx-build $DOC_ARGS $DOC_SOURCE doc
+#   artifacts:
+#     paths:
+#       - doc
