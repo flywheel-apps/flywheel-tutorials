@@ -1,0 +1,40 @@
+stages:
+  - test
+  - publish
+
+variables:
+  # Specifies which version of python to use
+  PYTHON_VERSION: "3.7"
+  # Enables building sphinx odc
+  DOC: "false"
+  # Additional options to pass to sphinx-build
+  DOC_ARGS: "-b html"
+  # Relative path to doc source
+  DOC_SOURCE: "docs/source"
+
+
+.python:
+  image: python:${PYTHON_VERSION}
+
+
+
+
+
+test:convert:
+  stage:test
+  script:
+    - cd ./python
+    - for FILE in *.ipynb; jupyter nbconvert --output-dir='./docs' --to html $FILE
+
+# Build the doc and save artifacts
+test:doc:
+  extends: .python
+  stage: test
+  only:
+    variables:
+      - $DOC == "true"
+  script:
+    - sphinx-build $DOC_ARGS $DOC_SOURCE doc
+  artifacts:
+    paths:
+      - doc
