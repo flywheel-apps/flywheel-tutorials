@@ -14,6 +14,10 @@ variables:
   # Relative path to doc source
   DOC_SOURCE: "docs/source"
 
+  # This is the relative directory of your python package
+  PACKAGE_DIR: $CI_PROJECT_NAME
+
+
 
 .python:
   image: python:${PYTHON_VERSION}
@@ -45,6 +49,7 @@ test:convert:
   extends: .python
   stage: test
   script:
+    - echo $CI_PROJECT_DIR
     - cd ./python
     - ls
     - for FILE in *.ipynb; do jupyter nbconvert --output-dir='../docs' --to html $FILE; done
