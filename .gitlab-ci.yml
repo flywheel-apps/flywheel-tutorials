@@ -36,7 +36,7 @@ test:convert:
   stage: test
   script:
     - cd ./python
-    - for FILE in *.ipynb; jupyter nbconvert --output-dir='./docs' --to html $FILE
+    - for FILE in *.ipynb; do jupyter nbconvert --output-dir='../docs' --to html $FILE; done
 
 # Build the doc and save artifacts
 test:doc:
