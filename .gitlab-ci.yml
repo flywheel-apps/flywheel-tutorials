@@ -48,7 +48,7 @@ variables:
   - cd /builds/flywheel-io/public/flywheel-tutorials/.cache/user-site/lib/python3.7/site-packages/nbconvert/ 
   - mv templates templates-tmp
   - ln -s /usr/local/share/jupyter .
-  - ls templates/
+  - ls /usr/local/share/jupytertemplates/
   # - mv templates templates-tmp  # empty
   # - ln -s .../site-packages/share/jupyter/nbconvert/templates .
   # - ls templates/
