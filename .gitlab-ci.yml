@@ -21,7 +21,9 @@ variables:
   before_script:
     - export PATH="$PATH:$PYTHONUSERBASE/bin"
     - pip install jupyter notebook 
+    - jupyter --version
     - pip install nbconvert
+    - nbconvert --version
 
 
 
