@@ -33,10 +33,14 @@ variables:
 
 
 test:convert:
+  extends: .python
   stage: test
   script:
     - cd ./python
     - for FILE in *.ipynb; do jupyter nbconvert --output-dir='../docs' --to html $FILE; done
+  artifacts:
+    paths:
+      - ../doc
 
 # Build the doc and save artifacts
 test:doc:
