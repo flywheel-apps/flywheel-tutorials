@@ -42,8 +42,8 @@ variables:
   - mkdir -p .cache/user-site/
   - python -V
   # Install dependencies to the --user site
-  - pip install --user jupyter notebook 
-  - pip install --user nbconvert
+  # - pip install jupyter notebook 
+  - pip install nbconvert
   # - pip install --user pytest pytest-cov pylint pycodestyle twine mypy black sphinx sphinx-rtd-theme
   - cd /builds/flywheel-io/public/flywheel-tutorials/.cache/user-site/lib/python3.7/site-packages/nbconvert/ 
   - mv templates templates-tmp
