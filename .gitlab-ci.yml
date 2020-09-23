@@ -5,8 +5,10 @@ stages:
 variables:
   # Specifies which version of python to use
   PYTHON_VERSION: "3.7"
+  # Sets the requirements file for pip install -r
+  REQUIREMENTS_FILE: "requirements.txt"
   # Enables building sphinx odc
-  DOC: "false"
+  DOC: "true"
   # Additional options to pass to sphinx-build
   DOC_ARGS: "-b html"
   # Relative path to doc source
@@ -16,6 +18,10 @@ variables:
 .python:
   image: python:${PYTHON_VERSION}
 
+  before_script:
+    - export PATH="$PATH:$PYTHONUSERBASE/bin"
+    - pip install jupyter notebook 
+    - pip install nbconvert
 
 
 
