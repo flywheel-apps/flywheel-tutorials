@@ -22,6 +22,15 @@ variables:
     PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
     PYTHONUSERBASE: "$CI_PROJECT_DIR/.cache/user-site"
 
+  # Pip's cache doesn't store the python packages
+  # Instead we use user-site/ as the user base
+  # See: https://pip.readthedocs.io/en/latest/user_guide/#user-installs
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - .cache/pip
+      - .cache/user-site/
+
 
   before_script:
     - export PATH="$PATH:$PYTHONUSERBASE/bin"
