@@ -18,12 +18,16 @@ variables:
 .python:
   image: python:${PYTHON_VERSION}
 
+  variables:
+    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+    PYTHONUSERBASE: "$CI_PROJECT_DIR/.cache/user-site"
+
+
   before_script:
     - export PATH="$PATH:$PYTHONUSERBASE/bin"
-    - pip install jupyter notebook 
-    - jupyter --version
-    - pip install nbconvert
-    - nbconvert --version
+    - python -V
+    - pip install --user jupyter notebook 
+    - pip install --user nbconvert
 
 
 
