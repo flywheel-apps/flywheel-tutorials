@@ -12,7 +12,7 @@ variables:
   # Additional options to pass to sphinx-build
   DOC_ARGS: "-b html"
   # Relative path to doc source
-  DOC_SOURCE: "docs/source"
+  DOC_SOURCE: "/builds/flywheel-io/public/flywheel-tutorials/docs/source"
 
   # This is the relative directory of your python package
   PACKAGE_DIR: $CI_PROJECT_NAME
@@ -50,7 +50,6 @@ test:convert:
   stage: test
   script:
     - cd /builds/flywheel-io/public/flywheel-tutorials/python
-    - ls
     - for FILE in *.ipynb; do jupyter nbconvert --output-dir='../docs' --to html $FILE; done
   artifacts:
     paths:
