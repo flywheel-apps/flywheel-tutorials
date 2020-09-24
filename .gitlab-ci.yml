@@ -55,15 +55,15 @@ test:convert:
     paths:
       - /builds/flywheel-io/public/flywheel-tutorials/docs
 
-# # Build the doc and save artifacts
-# test:doc:
-#   extends: .python
-#   stage: test
-#   only:
-#     variables:
-#       - $DOC == "true"
-#   script:
-#     - sphinx-build $DOC_ARGS $DOC_SOURCE doc
-#   artifacts:
-#     paths:
-      # - doc
+# Build the doc and save artifacts
+test:doc:
+  extends: .python
+  stage: test
+  only:
+    variables:
+      - $DOC == "true"
+  script:
+    - sphinx-build $DOC_ARGS $DOC_SOURCE doc
+  artifacts:
+    paths:
+      - /builds/flywheel-io/public/flywheel-tutorials/docs
