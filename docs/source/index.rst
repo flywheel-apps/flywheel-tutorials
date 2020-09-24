@@ -10,13 +10,8 @@ Flywheel-Tutorial's Documentation
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+   :name: TOC
 
 
    
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
