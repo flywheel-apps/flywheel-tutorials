@@ -42,6 +42,7 @@ variables:
   - mkdir -p .cache/user-site/
   - python -V
   - pip install nbconvert
+  - pip install sphinx sphinx-rtd-theme
 
 
 test:convert:
