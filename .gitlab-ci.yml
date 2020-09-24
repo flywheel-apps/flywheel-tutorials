@@ -67,3 +67,26 @@ test:doc:
   artifacts:
     paths:
       - /builds/flywheel-io/public/flywheel-tutorials/docs
+
+publish:convert:
+  extends: .python
+  stage: publish
+  script:
+    - cd /builds/flywheel-io/public/flywheel-tutorials/python
+    - for FILE in *.ipynb; do jupyter nbconvert --output-dir='../docs' --to html $FILE; done
+  artifacts:
+    paths:
+      - /builds/flywheel-io/public/flywheel-tutorials/docs
+
+# Build the doc and save artifacts
+publish:doc:
+  extends: .python
+  stage: publish
+  only:
+    variables:
+      - $DOC == "true"
+  script:
+    - sphinx-build $DOC_ARGS $DOC_SOURCE public
+  artifacts:
+    paths:
+      - public
