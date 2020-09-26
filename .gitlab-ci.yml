@@ -42,7 +42,6 @@ variables:
   - mkdir -p .cache/user-site/
   - python -V
   - pip install nbconvert
-  - pip install sphinx sphinx-rtd-theme
 
 
 test:convert:
@@ -73,11 +72,11 @@ publish:convert:
   stage: publish
   script:
     - cd /builds/flywheel-io/public/flywheel-tutorials/python
-    - for FILE in *.ipynb; do jupyter nbconvert --output-dir='public' --to html $FILE; done
+    - for FILE in *.ipynb; do jupyter nbconvert --output-dir='../public' --to html $FILE; done
   artifacts:
     paths:
-      - public
-  
+      - /builds/flywheel-io/public/flywheel-tutorials/public
+
 
 # # Build the doc and save artifacts
 # publish:doc:
