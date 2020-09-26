@@ -77,8 +77,7 @@ publish:convert:
   artifacts:
     paths:
       - public
-  only:
-    - master
+  
 
 # # Build the doc and save artifacts
 # publish:doc:
