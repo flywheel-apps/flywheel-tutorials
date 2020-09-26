@@ -74,7 +74,7 @@ publish:doc:
     variables:
       - $DOC == "true"
   script:
-    - mv TOC.html /builds/flywheel-io/public/flywheel-tutorials/docs /builds/flywheel-io/public/flywheel-tutorials
+    - mv /builds/flywheel-io/public/flywheel-tutorials/docs/TOC.html /builds/flywheel-io/public/flywheel-tutorials
     - mv TOC.html index.html
     - cd /builds/flywheel-io/public/flywheel-tutorials
     - mkdir .public
