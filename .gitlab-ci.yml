@@ -67,8 +67,7 @@ publish:convert:
 
 
 # Build the doc and save artifacts
-publish:doc:
-  extends: .python
+pages:
   stage: publish
   only:
     variables:
@@ -80,6 +79,9 @@ publish:doc:
     - mkdir .public
     - cp -r /builds/flywheel-io/public/flywheel-tutorials/docs .public
     - mv .public public
+
   artifacts:
     paths:
       - public
+  only:
+  - master
