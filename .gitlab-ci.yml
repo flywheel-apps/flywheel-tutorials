@@ -37,6 +37,7 @@ variables:
   - mkdir -p .cache/user-site/
   - python -V
   - pip install nbconvert
+  - pip install json requests os 
 
 
 test:convert:
@@ -81,6 +82,7 @@ pages:
 test:publish_article:
   extends: .python
   stage: test
+  needs: ["pages"]
   script:
     - sleep 15m
     - python3 /builds/flywheel-io/public/flywheel-tutorials/public/.script/zd_article_setup.py
