@@ -7,8 +7,10 @@ def main():
     try:
         os.chdir('/builds/flywheel-io/public/flywheel-tutorials/public')
         current_dir = os.getcwd()
-        ZD_PERMISSION_GROUP_ID = os.getenv('ZD_PERMISSION_GROUP_ID')
-        ZD_USER_SEGMENT_ID = os.getenv('ZD_USER_SEGMENT_ID')
+        ZD_PERMISSION_GROUP_ID = os.environ.get('ZD_PERMISSION_GROUP_ID')
+        print(ZD_PERMISSION_GROUP_ID)
+        ZD_USER_SEGMENT_ID = os.environ.get('ZD_USER_SEGMENT_ID')
+        print(ZD_USER_SEGMENT_ID)
 
         if os.path.isdir(current_dir):
             for file in os.listdir(current_dir):
@@ -48,9 +50,9 @@ def publish_article(json_file_path):
     subdomain = 'flywheelio'
 
     try:
-        ZD_USER = os.getenv('ZD_USER')
-        ZD_API_TOKEN = os.getenv('ZD_TOKEN')
-        ZD_SECTION_ID = os.getenv('ZD_SECTION_ID')
+        ZD_USER = os.environ.get('ZD_USER')
+        ZD_API_TOKEN = os.environ.get('ZD_TOKEN')
+        ZD_SECTION_ID = os.environ.get('ZD_SECTION_ID')
     except Exception as e:
         print(f'Error: {e}')
 
