@@ -6,12 +6,13 @@ stages:
 variables:
   # Specifies which version of python to use
   PYTHON_VERSION: "3.7"
-  # Enables building sphinx odc
+  # Enables building gitlab pages
   DOC: "true"
   # Additional options to pass to sphinx-build
   DOC_ARGS: "-b html"
   # This is the relative directory of your python package
   PACKAGE_DIR: $CI_PROJECT_NAME
+
 
 
 
@@ -58,6 +59,7 @@ publish:convert:
   script:
     - cd /builds/flywheel-io/public/flywheel-tutorials/python
     - for FILE in *.ipynb; do jupyter nbconvert --output-dir='../docs' --to html $FILE; done
+    - 
   artifacts:
     paths:
       - /builds/flywheel-io/public/flywheel-tutorials/docs
@@ -75,7 +77,7 @@ pages:
     - cp -r /builds/flywheel-io/public/flywheel-tutorials/docs/. .public
     - mv .public public
     - mv /builds/flywheel-io/public/flywheel-tutorials/public/TOC.html /builds/flywheel-io/public/flywheel-tutorials/public/index.html
-
+    - PAGES=${PAGES:-"true"}
   artifacts:
     paths:
       - public
@@ -83,6 +85,8 @@ pages:
 deploy:publish_article:
   extends: .python
   stage: deploy
+  only:
+    - $PAGES == 'true'
   script:
     - sleep 3m
     - python3 /builds/flywheel-io/public/flywheel-tutorials/.script/zd_article_setup.py
