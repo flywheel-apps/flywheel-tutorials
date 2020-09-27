@@ -1,6 +1,7 @@
 stages:
   - test
   - publish
+  - deploy
 
 variables:
   # Specifies which version of python to use
@@ -79,10 +80,9 @@ pages:
     paths:
       - public
 
-test:publish_article:
+deploy:publish_article:
   extends: .python
-  stage: test
-  needs: ["pages"]
+  stage: deploy
   script:
     - sleep 15m
     - python3 /builds/flywheel-io/public/flywheel-tutorials/public/.script/zd_article_setup.py
