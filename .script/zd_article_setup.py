@@ -2,20 +2,17 @@ import json
 import os
 import requests
 
-
 def main():
     try:
         os.chdir('/builds/flywheel-io/public/flywheel-tutorials/public')
         current_dir = os.getcwd()
         ZD_PERMISSION_GROUP_ID = os.environ.get('ZD_PERMISSION_GROUP_ID')
-        print(ZD_PERMISSION_GROUP_ID)
         ZD_USER_SEGMENT_ID = os.environ.get('ZD_USER_SEGMENT_ID')
-        print(ZD_USER_SEGMENT_ID)
 
         if os.path.isdir(current_dir):
             for file in os.listdir(current_dir):
-                if file.endswith('.html') and not file.startswith(('TOC', 'template')):
-                    title = file.replace('_', '').title()
+                if file.endswith('.html') and not file.startswith(('index', 'template')):
+                    title = file.replace('-', '').replace('.html','').title()
                     article_obj = create_article_obj(file, title, ZD_PERMISSION_GROUP_ID, ZD_USER_SEGMENT_ID)
 
                     if len(article_obj) >= 0:
