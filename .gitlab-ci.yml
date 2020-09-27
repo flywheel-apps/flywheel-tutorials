@@ -38,7 +38,7 @@ variables:
   - mkdir -p .cache/user-site/
   - python -V
   - pip install nbconvert
-  - pip install json requests os 
+  - pip install requests==2.7.0
 
 
 test:convert:
