@@ -88,8 +88,9 @@ pages:
 deploy:publish_article:
   extends: .python
   stage: deploy
-  rules:
-    - if: '$PUBLISH == "true"'
+  only:
+    variables:
+      - $PUBLISH == "true"
   script:
     - sleep 3m
     - python3 /builds/flywheel-io/public/flywheel-tutorials/.script/zd_article_setup.py
