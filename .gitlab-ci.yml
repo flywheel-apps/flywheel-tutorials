@@ -78,7 +78,7 @@ pages:
     - mv .public public
     - mv /builds/flywheel-io/public/flywheel-tutorials/public/TOC.html /builds/flywheel-io/public/flywheel-tutorials/public/index.html
   after_script:
-    - $CI_JOB_STATUS == "success"
+    - echo $CI_JOB_STATUS
   artifacts:
     paths:
       - public
