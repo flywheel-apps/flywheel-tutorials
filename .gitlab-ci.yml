@@ -12,6 +12,7 @@ variables:
   DOC_ARGS: "-b html"
   # This is the relative directory of your python package
   PACKAGE_DIR: $CI_PROJECT_NAME
+  PUBLISH: "false"
 
 
 
@@ -78,7 +79,8 @@ pages:
     - mv .public public
     - mv /builds/flywheel-io/public/flywheel-tutorials/public/TOC.html /builds/flywheel-io/public/flywheel-tutorials/public/index.html
   after_script:
-    - echo $CI_JOB_STATUS
+    - PUBLISH="true"
+    - echo $PUBLISH
   artifacts:
     paths:
       - public
@@ -87,7 +89,7 @@ deploy:publish_article:
   extends: .python
   stage: deploy
   rules:
-    - if: '$CI_JOB_STATUS == "success"'
+    - if: '$PUBLISH == "true"'
   script:
     - sleep 3m
     - python3 /builds/flywheel-io/public/flywheel-tutorials/.script/zd_article_setup.py
