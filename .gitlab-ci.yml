@@ -5,15 +5,10 @@ stages:
 variables:
   # Specifies which version of python to use
   PYTHON_VERSION: "3.7"
-  # Sets the requirements file for pip install -r
-  REQUIREMENTS_FILE: "requirements.txt"
   # Enables building sphinx odc
   DOC: "true"
   # Additional options to pass to sphinx-build
   DOC_ARGS: "-b html"
-  # Relative path to doc source
-  DOC_SOURCE: "/builds/flywheel-io/public/flywheel-tutorials/docs/source"
-
   # This is the relative directory of your python package
   PACKAGE_DIR: $CI_PROJECT_NAME
 
@@ -61,7 +56,6 @@ publish:convert:
   script:
     - cd /builds/flywheel-io/public/flywheel-tutorials/python
     - for FILE in *.ipynb; do jupyter nbconvert --output-dir='../docs' --to html $FILE; done
-  artifacts:
     paths:
       - /builds/flywheel-io/public/flywheel-tutorials/docs
 
@@ -73,12 +67,13 @@ pages:
     variables:
       - $DOC == "true"
   script:
-    - mv /builds/flywheel-io/public/flywheel-tutorials/docs/TOC.html /builds/flywheel-io/public/flywheel-tutorials
-    - mv TOC.html index.html
+    # - mv /builds/flywheel-io/public/flywheel-tutorials/docs/TOC.html /builds/flywheel-io/public/flywheel-tutorials
+    # - mv TOC.html index.html
     - cd /builds/flywheel-io/public/flywheel-tutorials
     - mkdir .public
     - cp -r /builds/flywheel-io/public/flywheel-tutorials/docs .public
     - mv .public public
+    - ls
 
   artifacts:
     paths:
