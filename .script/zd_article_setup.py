@@ -12,7 +12,7 @@ def main():
         if os.path.isdir(current_dir):
             for file in os.listdir(current_dir):
                 if file.endswith('.html') and not file.startswith(('index', 'template')):
-                    title = file.replace('-', '').replace('.html','').title()
+                    title = file.replace('-', ' ').replace('.html','').title()
                     article_obj = create_article_obj(file, title, ZD_PERMISSION_GROUP_ID, ZD_USER_SEGMENT_ID)
 
                     if len(article_obj) >= 0:
