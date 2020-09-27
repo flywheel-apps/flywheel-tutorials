@@ -77,7 +77,6 @@ pages:
     - cp -r /builds/flywheel-io/public/flywheel-tutorials/docs/. .public
     - mv .public public
     - mv /builds/flywheel-io/public/flywheel-tutorials/public/TOC.html /builds/flywheel-io/public/flywheel-tutorials/public/index.html
-    - PAGES=${PAGES:-"true"}
   artifacts:
     paths:
       - public
@@ -85,8 +84,8 @@ pages:
 deploy:publish_article:
   extends: .python
   stage: deploy
-  only:
-    - $PAGES == 'true'
+  rules:
+    - if: '$CI_JOB_STATUS == "success"'
   script:
     - sleep 3m
     - python3 /builds/flywheel-io/public/flywheel-tutorials/.script/zd_article_setup.py
