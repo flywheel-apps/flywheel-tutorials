@@ -72,7 +72,7 @@ pages:
     # - mv TOC.html index.html
     - cd /builds/flywheel-io/public/flywheel-tutorials
     - mkdir .public
-    - cp -r /builds/flywheel-io/public/flywheel-tutorials/docs .public
+    - cp -r /builds/flywheel-io/public/flywheel-tutorials/docs/. .public
     - mv .public public
     - mv /builds/flywheel-io/public/flywheel-tutorials/public/TOC.html /builds/flywheel-io/public/flywheel-tutorials/public/index.html
 
