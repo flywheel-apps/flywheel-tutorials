@@ -68,7 +68,7 @@ pages:
   only:
     variables:
       - $DOC == "true"
-    ref:
+    refs:
       - master
   script:
     - cd /builds/flywheel-io/public/flywheel-tutorials
