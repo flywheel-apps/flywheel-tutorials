@@ -43,15 +43,12 @@ The current list of issue labels are [here](https://gitlab.com/flywheel-io/publi
 
 - ~"Tutorial Improvement"  If you have suggestions for how we can improve an existing tutorial by clarifying, expanding, or simply adding content to.
 
-- ~"Tutorial Contribution"  If you have your own tutorial notebook to submit for publication in this repository, add this label to your merge request.
-    Please ensure that you've read and followed the instructions outlined in this document before submitting.
-
 - ~"Tutorial Request"  If you are unable to contribute yourself, but would like to request a tutorial on a specific topic, please use this tag.  
 
 
 ## Tutorial Contribution
 
-When contributing a new tutorial, we recommend that you familiarize yourself with the [git style workflow](https://guides.GitLab.com/introduction/flow/index.html)
+When contributing a new tutorial, we recommend that you familiarize yourself with the [git style workflow](https://guides.GitLab.com/introduction/flow/index.html).
 
 ### Contribution Workflow:
 
@@ -129,27 +126,27 @@ In order to ease the reviewing process, we recommend that your contribution comp
 
 ### Minimum contribution requirements:
 Your contribution must meet these minimum criteria to be considered for publication:
-- Include a brief summary and/or purpose of the notebook
-- The notebook should cover material not present in existing notebooks, or with minimal overlap
+- Include a brief summary and/or purpose of the notebook.
+- The notebook should cover material not present in existing notebooks, or with minimal overlap.
   - Consider submitting your notebook as an "improvement" to an existing tutorial if there is significant content overlap.
-- Code must be python3 executable
-- Complete list of library imports, using only default python or pip-installable libraries
+- Code must be python3 executable.
+- Complete list of library imports, using only default python or pip-installable libraries.
 - All path/file references must be relative to the execution environment (No direct links like ‘/Users/myuser/Documents/etc…’ that need to be changed manually for execution).
-- No sensitive information (API-keys, PHI, protected data, etc.)
-- Contribution must be in the form of a tutorial (i.e. do not just submit a function that takes a flywheel subject and does some processing.  Include something like a script showing how to find a subject, ensure it will work with the function, run the function, and then check to make sure it worked)
+- No sensitive information (API-keys, PHI, protected data, etc.).
+- Contribution must be in the form of a tutorial (i.e. do not just submit a function that takes a flywheel subject and does some processing.  Include something like a script showing how to find a subject, ensure it will work with the function, run the function, and then check to make sure it worked).
 
 
 ### Recommended style guidelines:
-- Prefer a jupyter notebook style contribution
+- Prefer a jupyter notebook style contribution.
 - Follow [PEP-8](https://www.python.org/dev/peps/pep-0008/) guidelines. For the most part, [Black](https://pypi.org/project/black/), a code formatter, will get you there.
-- Extensive comments, in the form of a walkthrough, explaining not only WHAT the code is doing, but WHY (And when appropriate, HOW)
+- Extensive comments, in the form of a walkthrough, explaining not only WHAT the code is doing, but WHY (And when appropriate, HOW).
 
 
 ## Bug Report
 
 
 ### Workflow to report a bug or pull request:
-- Verify (as best you can) that the bug is code-related.  Review the common support FAQ and ensure your problem isn't covered there
+- Verify (as best you can) that the bug is code-related.  Review the common support FAQ and ensure your problem isn't covered there.
 - Generate an issue for the repository and use the ~"Bug" label.
 - Populate all fields in the template. 
 
@@ -159,14 +156,14 @@ Your contribution must meet these minimum criteria to be considered for publicat
 ### Tutorial improvement workflow
 - Verify (as best you can) that the improvement is not covered in an existing tutorial.
 - Create an issue with the label ~"Tutorial Improvement".
-- Populate the fields in the template
+- Populate the fields in the template.
 
 
 ## Tutorials Request
 
 ### Tutorial request workflow
 - Verify (as best you can) that the material is not covered in an existing tutorial.
-- Create an issue with the label ~"Tutorial Request"
-- Populate the fields in the template
+- Create an issue with the label ~"Tutorial Request".
+- Populate the fields in the template.
 
 
