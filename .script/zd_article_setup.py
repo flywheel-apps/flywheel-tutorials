@@ -5,12 +5,11 @@ import logging
 
 from pathlib import Path
 
-DENYLIST = ['index', 'template']
+DENY_LIST = ['index', 'template']
 BASE_PATH = Path('/builds/flywheel-io/public/flywheel-tutorials/')
 
-logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s', datefmt='%d-%m-%y %H:%M:%S')
 log = logging.getLogger('root')
-
 
 def main():
     try:
@@ -22,7 +21,7 @@ def main():
 
         if os.path.isdir(current_dir):
             for file in os.listdir(current_dir):
-                if file.endswith('.html') and not any(file.startswith(name) for name in DENYLIST):
+                if file.endswith('.html') and not any(file.startswith(name) for name in DENY_LIST):
                     title = file.replace('-', ' ').replace('_', ' ').replace('.html', '').title()
                     log.info(f'*** Processing File {title} ***')
                     article_obj = create_article_obj(file, title, ZD_PERMISSION_GROUP_ID, ZD_USER_SEGMENT_ID)

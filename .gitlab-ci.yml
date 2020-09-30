@@ -62,7 +62,7 @@ deploy:publish_article:
   extends: .python
   stage: deploy
   script:
-    - sleep 1m
+    - sleep 3m
     - python3 /builds/flywheel-io/public/flywheel-tutorials/.script/zd_article_setup.py
   artifacts:
     paths:
