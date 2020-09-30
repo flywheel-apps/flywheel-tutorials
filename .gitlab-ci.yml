@@ -38,18 +38,6 @@ variables:
   - pip install nbconvert
   - pip install requests==2.7.0
 
-
-test:convert:
-  extends: .python
-  stage: test
-  script:
-    - cd /builds/flywheel-io/public/flywheel-tutorials/python
-    - for FILE in *.ipynb; do jupyter nbconvert --output-dir='../docs' --to html $FILE; done
-  artifacts:
-    paths:
-      - /builds/flywheel-io/public/flywheel-tutorials/docs
-
-
 publish:convert:
   extends: .python
   stage: publish
