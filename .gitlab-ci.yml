@@ -51,8 +51,8 @@ publish:convert_to_pages:
     - mkdir .public
     - cd /builds/flywheel-io/public/flywheel-tutorials/python
     - for FILE in *.ipynb; do jupyter nbconvert --output-dir='../.public' --to html $FILE; done
-    - mv .public public
-    - mv ./public/TOC.html ./public/index.html
+    - mv ../.public ../public
+    - mv ../public/TOC.html ../public/index.html
 
   artifacts:
     paths:
