@@ -18,8 +18,8 @@ def main():
         if os.path.isdir(current_dir):
             for file in os.listdir(current_dir):
                 if file.endswith('.html') and not any(file.startswith(name) for name in DENYLIST):
-                    log.info(f'*** Processing File {title} ***')
                     title = file.replace('-', ' ').replace('_', ' ').replace('.html', '').title()
+                    log.info(f'*** Processing File {title} ***')
                     article_obj = create_article_obj(file, title, ZD_PERMISSION_GROUP_ID, ZD_USER_SEGMENT_ID)
 
                     if len(article_obj) >= 0:
