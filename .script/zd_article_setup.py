@@ -2,6 +2,8 @@ import json
 import os
 import requests
 
+DENYLIST = ['index', 'template']
+
 def main():
     try:
         os.chdir('/builds/flywheel-io/public/flywheel-tutorials/public')
@@ -11,8 +13,8 @@ def main():
 
         if os.path.isdir(current_dir):
             for file in os.listdir(current_dir):
-                if file.endswith('.html') and not file.startswith(('index', 'template')):
-                    title = file.replace('-', ' ').replace('_', ' ').replace('.html','').title()
+                if file.endswith('.html') and not any(file.startswith(name) for name in DENYLIST):
+                    title = file.replace('-', ' ').replace('_', ' ').replace('.html', '').title()
                     article_obj = create_article_obj(file, title, ZD_PERMISSION_GROUP_ID, ZD_USER_SEGMENT_ID)
 
                     if len(article_obj) >= 0:
@@ -28,7 +30,6 @@ def main():
 
 
 def create_article_obj(filepath, title, permission_group_id, user_segment_id):
-    # example url-> https: // flywheel - io.gitlab.io / public / flywheel - tutorials / Flywheel - SDK - Example.html
     body_value = f"<div><iframe width=\"900\" height=\"800\" src=\"https://flywheel-io.gitlab.io/public/flywheel-tutorials/{filepath}\"></iframe></div>"
 
     article_dict = {"article": {
