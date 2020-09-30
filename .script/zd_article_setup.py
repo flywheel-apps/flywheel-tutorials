@@ -3,14 +3,19 @@ import os
 import requests
 import logging
 
+from pathlib import Path
+
 DENYLIST = ['index', 'template']
+BASE_PATH = Path('/builds/flywheel-io/public/flywheel-tutorials/')
 
 logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S')
 log = logging.getLogger('root')
 
+
 def main():
     try:
-        os.chdir('/builds/flywheel-io/public/flywheel-tutorials/public')
+        public_dir = BASE_PATH / 'public'
+        os.chdir(public_dir)
         current_dir = os.getcwd()
         ZD_PERMISSION_GROUP_ID = os.environ.get('ZD_PERMISSION_GROUP_ID')
         ZD_USER_SEGMENT_ID = os.environ.get('ZD_USER_SEGMENT_ID')
@@ -25,8 +30,8 @@ def main():
                     if len(article_obj) >= 0:
                         with open('article.json', 'w') as output_files:
                             json.dump(article_obj, output_files)
-
-                        publish_article(article_obj, title)
+                        article_json_path = public_dir / 'article.json'
+                        publish_article(article_json_path, title)
 
     except (OSError, IOError) as e:
         log.exception(f'Error: {e}')
@@ -81,7 +86,8 @@ def publish_article(json_file_path, title):
 
     # Check for HTTP codes other than 201 (Created)
     if response.status_code != 201:
-        log.exception(f'Status: {response.status_code}. Problem with the request and unable to publish {title}. Exiting.')
+        log.exception(
+            f'Status: {response.status_code}. Problem with the request and unable to publish {title}. Exiting.')
     else:
         # Report success
         log.info(f'Successfully created {title} on ZenDesk.')
