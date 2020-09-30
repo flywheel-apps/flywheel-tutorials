@@ -1,8 +1,12 @@
 import json
 import os
 import requests
+import logging
 
 DENYLIST = ['index', 'template']
+
+logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S')
+log = logging.getLogger('root')
 
 def main():
     try:
@@ -14,6 +18,7 @@ def main():
         if os.path.isdir(current_dir):
             for file in os.listdir(current_dir):
                 if file.endswith('.html') and not any(file.startswith(name) for name in DENYLIST):
+                    log.info(f'*** Processing File {title} ***')
                     title = file.replace('-', ' ').replace('_', ' ').replace('.html', '').title()
                     article_obj = create_article_obj(file, title, ZD_PERMISSION_GROUP_ID, ZD_USER_SEGMENT_ID)
 
@@ -21,12 +26,12 @@ def main():
                         with open('article.json', 'w') as output_files:
                             json.dump(article_obj, output_files)
 
-                        publish_article('/builds/flywheel-io/public/flywheel-tutorials/public/article.json')
+                        publish_article(article_obj, title)
 
     except (OSError, IOError) as e:
-        print(f'Error: {e}')
+        log.exception(f'Error: {e}')
     except Exception as exception:
-        print(f'Error: {exception}')
+        log.exception(f'Error: {exception}')
 
 
 def create_article_obj(filepath, title, permission_group_id, user_segment_id):
@@ -43,7 +48,8 @@ def create_article_obj(filepath, title, permission_group_id, user_segment_id):
     return article_dict
 
 
-def publish_article(json_file_path):
+def publish_article(json_file_path, title):
+    log.info(f'--- Publishing {title} to ZenDesk ---')
     # Set the target Zendesk subdomain (subdomain.zendesk.com)
     subdomain = 'flywheelio'
 
@@ -52,7 +58,7 @@ def publish_article(json_file_path):
         ZD_API_TOKEN = os.environ.get('ZD_TOKEN')
         ZD_SECTION_ID = os.environ.get('ZD_SECTION_ID')
     except Exception as e:
-        print(f'Error: {e}')
+        log.exception(f'Error: {e}')
 
     # Set the request parameters
     apiEndPoint = '/api/v2/help_center/sections/' + ZD_SECTION_ID
@@ -75,12 +81,10 @@ def publish_article(json_file_path):
 
     # Check for HTTP codes other than 201 (Created)
     if response.status_code != 201:
-        print('Status:', response.status_code, 'Problem with the request. Exiting.')
-        exit()
+        log.exception(f'Status: {response.status_code}. Problem with the request and unable to publish {title}. Exiting.')
     else:
-
         # Report success
-        print('Successfully created the article.')
+        log.info(f'Successfully created {title} on ZenDesk.')
 
 
 if __name__ == "__main__":
