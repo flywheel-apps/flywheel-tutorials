@@ -7,7 +7,7 @@ variables:
   # Specifies which version of python to use
   PYTHON_VERSION: "3.7"
   # Enables building gitlab pages
-  DOC: "false"
+  DOC: "true"
   # Additional options to pass to sphinx-build
   DOC_ARGS: "-b html"
   # This is the relative directory of your python package
@@ -44,6 +44,7 @@ publish:convert:
   script:
     - cd /builds/flywheel-io/public/flywheel-tutorials/python
     - for FILE in *.ipynb; do jupyter nbconvert --output-dir='../docs' --to html $FILE; done
+    - pwd
     
   artifacts:
     paths:
@@ -51,7 +52,7 @@ publish:convert:
 
 
 # Build the doc and save artifacts
-pages:
+publish:pages:
   stage: publish
   only:
     variables:
