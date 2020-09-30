@@ -43,7 +43,7 @@ publish:convert:
   stage: publish
   script:
     - cd /builds/flywheel-io/public/flywheel-tutorials/python
-    - for FILE in *.ipynb; do jupyter nbconvert --output-dir='../docs' --to html $FILE; done
+    - for FILE in *.ipynb; do jupyter nbconvert --output-dir='../docs/' --to html $FILE; done
 
   artifacts:
     paths:
