@@ -61,7 +61,7 @@ publish:pages:
   script:
     - cd /builds/flywheel-io/public/flywheel-tutorials
     - mkdir .public
-    - cp -r ./docs/. .public
+    - cp -r /builds/flywheel-io/public/flywheel-tutorials/docs/. .public
     - mv .public public
     - mv ./public/TOC.html ./public/index.html
   artifacts:
