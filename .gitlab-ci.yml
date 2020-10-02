@@ -44,8 +44,7 @@ publish:convert_to_pages:
     - mkdir public
     - cd /builds/flywheel-io/public/flywheel-tutorials/python
     - for FILE in *.ipynb; do jupyter nbconvert --output-dir='../public' --to html $FILE; done
-    - mv ../public/TOC.html ../public/index.html
-    - cat ../public/index.html | sed 's/gitlab.com\/flywheel-io\/public\/flywheel-tutorials\/-\/blob\/master\/python/flywheel-io.gitlab.io\/public\/flywheel-tutorials/g;s/.ipynb/.html/g'
+    - cat ../public/TOC.html | sed 's/gitlab.com\/flywheel-io\/public\/flywheel-tutorials\/-\/blob\/master\/python/flywheel-io.gitlab.io\/public\/flywheel-tutorials/g;s/.ipynb/.html/g' > ../public/index.html
 
   artifacts:
     paths:

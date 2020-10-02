@@ -5,7 +5,7 @@ import logging
 
 from pathlib import Path
 
-DENY_LIST = ['index', 'template']
+DENY_LIST = ['index', 'template', 'TOC']
 BASE_PATH = Path('/builds/flywheel-io/public/flywheel-tutorials/')
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s', datefmt='%d-%m-%y %H:%M:%S')
