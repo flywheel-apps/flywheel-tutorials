@@ -37,8 +37,8 @@ publish:convert_to_pages:
   extends: .python
   stage: publish
   only:
-    # refs:
-    #   - master
+    refs:
+      - master
   script:
     - cd /builds/flywheel-io/public/flywheel-tutorials
     - mkdir public
