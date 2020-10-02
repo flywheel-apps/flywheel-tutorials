@@ -1,15 +1,10 @@
 stages:
-  - test
   - publish
   - deploy
 
 variables:
   # Specifies which version of python to use
   PYTHON_VERSION: "3.7"
-  # Enables building gitlab pages
-  DOC: "true"
-  # Additional options to pass to sphinx-build
-  DOC_ARGS: "-b html"
   # This is the relative directory of your python package
   PACKAGE_DIR: $CI_PROJECT_NAME
 
@@ -42,17 +37,15 @@ publish:convert_to_pages:
   extends: .python
   stage: publish
   only:
-    variables:
-      - $DOC == "true"
     # refs:
     #   - master
   script:
     - cd /builds/flywheel-io/public/flywheel-tutorials
-    - mkdir .public
+    - mkdir public
     - cd /builds/flywheel-io/public/flywheel-tutorials/python
-    - for FILE in *.ipynb; do jupyter nbconvert --output-dir='../.public' --to html $FILE; done
-    - mv ../.public ../public
+    - for FILE in *.ipynb; do jupyter nbconvert --output-dir='../public' --to html $FILE; done
     - mv ../public/TOC.html ../public/index.html
+    - cat ../public/index.html | sed 's/gitlab.com\/flywheel-io\/public\/flywheel-tutorials\/-\/blob\/master\/python/flywheel-io.gitlab.io\/public\/flywheel-tutorials/g;s/.ipynb/.html/g'
 
   artifacts:
     paths:
