@@ -1,0 +1,61 @@
+stages:
+  - publish
+  - deploy
+
+variables:
+  # Specifies which version of python to use
+  PYTHON_VERSION: "3.7"
+  # This is the relative directory of your python package
+  PACKAGE_DIR: $CI_PROJECT_NAME
+
+.python:
+  image: python:${PYTHON_VERSION}
+
+  # Change pip's cache directory to be inside the project directory since we can
+  # only cache local items.
+  variables:
+    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+    PYTHONUSERBASE: "$CI_PROJECT_DIR/.cache/user-site"
+
+  # Pip's cache doesn't store the python packages
+  # Instead we use user-site/ as the user base
+  # See: https://pip.readthedocs.io/en/latest/user_guide/#user-installs
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - .cache/pip
+      - .cache/user-site/
+
+  before_script:
+  - export PATH="$PATH:$PYTHONUSERBASE/bin"
+  - mkdir -p .cache/user-site/
+  - python -V
+  - pip install nbconvert
+  - pip install requests==2.7.0
+
+publish:convert_to_pages:
+  extends: .python
+  stage: publish
+  only:
+    refs:
+      - master
+  script:
+    - cd /builds/flywheel-io/public/flywheel-tutorials
+    - mkdir public
+    - cd /builds/flywheel-io/public/flywheel-tutorials/python
+    - for FILE in *.ipynb; do jupyter nbconvert --output-dir='../public' --to html $FILE; done
+    - cat ../public/TOC.html | sed 's/gitlab.com\/flywheel-io\/public\/flywheel-tutorials\/-\/blob\/master\/python/flywheel-io.gitlab.io\/public\/flywheel-tutorials/g;s/.ipynb/.html/g' > ../public/index.html
+
+  artifacts:
+    paths:
+      - public
+
+deploy:publish_article:
+  extends: .python
+  stage: deploy
+  script:
+    - sleep 3m
+    - python3 /builds/flywheel-io/public/flywheel-tutorials/.script/zd_article_setup.py
+  artifacts:
+    paths:
+      - /builds/flywheel-io/public/flywheel-tutorials/public
