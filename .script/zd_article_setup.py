@@ -17,14 +17,14 @@ def main():
         os.chdir(public_dir)
         current_dir = os.getcwd()
         ZD_PERMISSION_GROUP_ID = os.environ.get('ZD_PERMISSION_GROUP_ID')
-        ZD_USER_SEGMENT_ID = os.environ.get('ZD_USER_SEGMENT_ID')
+        
 
         if os.path.isdir(current_dir):
             for file in os.listdir(current_dir):
                 if file.endswith('.html') and not any(file.startswith(name) for name in DENY_LIST):
                     title = file.replace('-', ' ').replace('_', ' ').replace('.html', '').title()
                     log.info(f'*** Processing File {title} ***')
-                    article_obj = create_article_obj(file, title, ZD_PERMISSION_GROUP_ID, ZD_USER_SEGMENT_ID)
+                    article_obj = create_article_obj(file, title, ZD_PERMISSION_GROUP_ID)
 
                     if len(article_obj) >= 0:
                         with open('article.json', 'w') as output_files:
@@ -38,7 +38,7 @@ def main():
         log.exception(f'Error: {exception}')
 
 
-def create_article_obj(filepath, title, permission_group_id, user_segment_id):
+def create_article_obj(filepath, title, permission_group_id):
     body_value = f"<div><iframe width=\"900\" height=\"800\" src=\"https://flywheel-io.gitlab.io/public/flywheel-tutorials/{filepath}\"></iframe></div>"
 
     article_dict = {"article": {
@@ -46,7 +46,7 @@ def create_article_obj(filepath, title, permission_group_id, user_segment_id):
         "locale": "en-us",
         "permission_group_id": int(permission_group_id),
         "title": title,
-        "user_segment_id": int(user_segment_id)},
+        "user_segment_id": None},
         "notify_subscribers": False}
 
     return article_dict
