@@ -68,7 +68,7 @@ def main():
 
 def update_existing_notebook(article_id, filename):
 
-    apiEndPoint = '/api/v2/help_center/articles/'+article_id+'/translations/en-us.json'
+    apiEndPoint = '/api/v2/help_center/articles/'+int(article_id)+'/translations/en-us.json'
     url = 'https://' + SUBDOMAIN + '.zendesk.com' + apiEndPoint 
 
     headers = {
