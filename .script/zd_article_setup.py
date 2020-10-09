@@ -77,7 +77,7 @@ def update_existing_notebook(article_id, filename):
 
     body_value = f"<div><iframe width=\"900\" height=\"800\" src=\"https://flywheel-io.gitlab.io/public/flywheel-tutorials/{filename}\"></iframe></div>"
 
-    data = '{"translation": {"body": body_value}}'
+    data = '{"translation": {"body": ' +'\"'+ body_value + '\"'+'}}'
 
     response = requests.put(url, headers=headers, data=data, auth=(ZD_USER, ZD_API_TOKEN))
 
