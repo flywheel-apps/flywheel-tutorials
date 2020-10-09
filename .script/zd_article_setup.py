@@ -51,7 +51,7 @@ def main():
 
             # When there is no new notebook added to repo
             for article_name, article_id in zd_articles_w_id.items():
-                update_existing_notebook(article_id, current_notebook[article_name])
+                update_existing_notebook(str(article_id), current_notebook[article_name])
                 #update existing notebook?
 
 
@@ -67,11 +67,9 @@ def main():
 
 
 def update_existing_notebook(article_id, filename):
-    log.info(article_id)
 
     apiEndPoint = '/api/v2/help_center/articles/'+article_id+'/translations/en-us.json'
 
-    log.info(apiEndPoint)
     url = 'https://' + SUBDOMAIN + '.zendesk.com' + apiEndPoint 
 
     headers = {
