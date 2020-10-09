@@ -63,7 +63,7 @@ def main():
 
     else:
         log.error('Error occurred when getting data from Zendesk.')
-        break
+        
 
 
 def update_existing_notebook(article_id, filename):
