@@ -179,7 +179,7 @@ def get_all_current_articles():
     try:
         # Set the request parameters
         apiEndPoint = '/api/v2/help_center/sections/' + ZD_SECTION_ID
-        url = 'https://' + subdomain + '.zendesk.com' + apiEndPoint + '/articles.json'
+        url = 'https://' + SUBDOMAIN + '.zendesk.com' + apiEndPoint + '/articles.json'
 
         response = requests.get(url)
 
@@ -188,7 +188,7 @@ def get_all_current_articles():
         return data, None
     except Exception as e:
         log.exception(f'Error occurred. More detail: {e}')
-        log.exception(f'Error Message from request: {res.text}')
+        log.exception(f'Error Message from request: {response.text}')
         return None, e
 
     
