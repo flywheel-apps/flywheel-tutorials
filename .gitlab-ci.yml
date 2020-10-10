@@ -57,7 +57,7 @@ deploy:publish_article:
   stage: deploy
   only:
     refs:
-      master
+      - master
   script:
     - sleep 3m
     - python3 /builds/flywheel-io/public/flywheel-tutorials/.script/zd_article_setup.py
