@@ -72,14 +72,15 @@ def update_existing_notebook(article_id, filename):
 
     url = 'https://' + SUBDOMAIN + '.zendesk.com' + apiEndPoint 
 
-    headers = {
-    'Content-Type': 'application/json',}
+    headers = {'Content-Type': 'application/json',}
 
     body_value = f"<div><iframe width=\"900\" height=\"800\" src=\"https://flywheel-io.gitlab.io/public/flywheel-tutorials/{filename}\"></iframe></div>"
 
     data = '{"translation": {"body": ' +'\"'+ body_value + '\"'+'}}'
 
-    response = requests.put(url, headers=headers, data=data, auth=(ZD_USER, ZD_API_TOKEN))
+    payload = json.dumps(data)
+
+    response = requests.put(url, headers=headers, data=payload, auth=(ZD_USER, ZD_API_TOKEN))
 
     # Check for HTTP codes other than 201 (Created)
     if response.status_code != 200:
