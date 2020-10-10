@@ -36,9 +36,9 @@ variables:
 publish:convert_to_pages:
   extends: .python
   stage: publish
-  # only:
-  #   refs:
-  #     - master
+  only:
+    refs:
+      - master
   script:
     - cd /builds/flywheel-io/public/flywheel-tutorials
     - mkdir public
@@ -56,8 +56,8 @@ deploy:publish_article:
   extends: .python
   stage: deploy
   only:
-    changes:
-      - public
+    refs:
+      master
   script:
     - sleep 3m
     - python3 /builds/flywheel-io/public/flywheel-tutorials/.script/zd_article_setup.py
