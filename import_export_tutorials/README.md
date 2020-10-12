@@ -10,10 +10,10 @@ Many of these tutorials connect to public datasets that require a Data Use Agree
 
 The following ipython Jupyter notebooks import public datasets into a specified Flywheel instance. Ensure you have the proper permissions in your Flywheel instance before attempting.
 
-### [Kaggle Pneumonia Chest X-Ray](.kaggle_pneumonia_chestxray.ipynb)
+### [Kaggle Pneumonia Chest X-Ray](kaggle_pneumonia_chestxray.ipynb)
 
 Import data from the [Kaggle RSNA Pneumonia Detection Challenge](https://www.kaggle.com/c/rsna-pneumonia-detection-challenge/).
 
-### [COVID-19 Chest X-Ray Dataset](.covid_chestxray_dataset.ipynb)
+### [COVID-19 Chest X-Ray Dataset](covid_chestxray_dataset.ipynb)
 
 Import data from the [COVID-19 Chest X-Ray Dataset](https://github.com/ieee8023/covid-chestxray-dataset).
