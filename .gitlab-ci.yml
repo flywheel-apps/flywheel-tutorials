@@ -55,6 +55,9 @@ publish:convert_to_pages:
 deploy:publish_article:
   extends: .python
   stage: deploy
+  only:
+    refs:
+      - master
   script:
     - sleep 3m
     - python3 /builds/flywheel-io/public/flywheel-tutorials/.script/zd_article_setup.py
