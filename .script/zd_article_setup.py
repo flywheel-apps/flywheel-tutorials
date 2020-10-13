@@ -37,7 +37,6 @@ def main():
         # If there is at least one article in Zendesk
         if data['count'] > 0 :
             for article in data['articles']:
-                # zd_articles.append(article['name'])
                 # key: article name; value: article id
                 zd_articles_w_id[article['name']] = article['id']
 
@@ -49,10 +48,9 @@ def main():
                 for notebook_title in list(new_notebook):
                     proccess_notebook(notebook_title, current_notebook[notebook_title])
 
-            # When there is no new notebook added to repo
+            # Update existing notebook in ZenDesk
             for article_name, article_id in zd_articles_w_id.items():
                 update_existing_notebook(str(article_id), current_notebook[article_name])
-                #update existing notebook?
 
 
 
