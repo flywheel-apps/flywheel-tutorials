@@ -2,10 +2,13 @@
 The following are helper functions for finding or creating various containers in
 Flywheel.
 """
+import logging
 import os
 import time
 
 import flywheel
+
+log = logging.getLogger(__name__)
 
 
 def find_or_create_group(fw_client, group_id, label):
@@ -14,7 +17,7 @@ def find_or_create_group(fw_client, group_id, label):
 
     Args:
         group_id (str): Instance-unique, lower-case alphabetic with "_" as id for Group.
-        label (str): The label for the Group. Less restricted than 'id'.
+        label (str): The Group label to find or create. Less restricted than 'id'.
 
     Returns:
         flywheel.Group: The found or created Group.
@@ -25,44 +28,63 @@ def find_or_create_group(fw_client, group_id, label):
     group = fw_client.groups.find_first(f"label={label}")
 
     if not group:
+        log.info(f'Group with label "{label}" not found, creating.')
         group = flywheel.Group(id=group_id, label=label)
         _group_id = fw_client.add_group(group)
         group = fw_client.get_group(_group_id)
-
+    else:
+        log.info(f'Group with label "{label}" found.')
     if group:
         group = group.reload()
 
     return group
 
 
-def find_or_create_project(label, group):
+def find_or_create_project(label, group, update=True, **kwargs):
     """
     Find or create Flywheel Project with "label" under "group".
 
     Args:
-        label (str): [description]
+        label (str): The Project label to find or create.
         group (flywheel.Group): The Flywheel Group object to create this Project under.
-
+        update (bool, optional): Flag to update metadata of new or existing Project.
+            Defaults to True.
+        kwargs (dict): Any key/value properties of the Project you would like to update.
     Returns:
         flywheel.Project: The found or created Flywheel Project object.
     """
     if not label:
         return None
     project = group.projects.find_first(f"label={label}")
+
+    if not project:
+        log.info(f'Project with label "{label}" not found, creating.')
+        project = group.add_subject(code=label, label=label)
+    else:
+        log.info(f'Project with label "{label}" found.')
+
+    if project:
+        if update and kwargs:
+            project.update(**kwargs)
+
+        project = project.reload()
+
     return project
 
 
-def find_or_create_subject(label, sex, project):
+def find_or_create_subject(label, project, update=True, **kwargs):
     """
     Find or create a Subject with "label" under "project".
 
     If Subject is found, "sex" is disregarded.
 
     Args:
-        label (str): The label to use for the Subject name.
+        label (str): The Subject label to find or create.
         sex (str): The sex of the Subject. Can be `None`.
         project (flywheel.Project): The project object to create this Subject under.
-
+        update (bool, optional): Flag to update metadata of new or existing Subject.
+            Defaults to True.
+        kwargs (dict): Any key/value properties of the Subject you would like to update.
     Returns:
         flywheel.Subject: The found or created Flywheel Subject object.
     """
@@ -71,88 +93,117 @@ def find_or_create_subject(label, sex, project):
     subject = project.subjects.find_first(f"label={label}")
 
     if not subject:
+        log.info(f'Subject with label "{label}" not found, creating.')
         subject = project.add_subject(code=label, label=label)
-        if sex:
-            subject.update(sex=sex)
+    else:
+        log.info(f'Subject with label "{label}" found.')
+
+    if update and kwargs:
+        subject.update(**kwargs)
 
     if subject:
+        if update and kwargs:
+            subject.update(**kwargs)
         subject = subject.reload()
 
     return subject
 
 
-def find_or_create_session(label, age, subject):
+def find_or_create_session(label, subject, update=True, **kwargs):
     """
     Find or create a Session with "label" under "subject".
 
     If Session is found, "age" is disregarded.
 
     Args:
-        label (str): The label to display for this Session.
-        age (int): The age of the Subject at the event of this Session.
+        label (str): The Session label to find or create.
         subject (flywheel.Subject): The Flywheel Subject to create the Session under.
-
+        update (bool, optional): Flag to update metadata of new or existing Session.
+            Defaults to True.
+        kwargs (dict): Any key/value properties of the Session you would like to update.
     Returns:
-        flywheel.session: The found or created Flywheel Session.
+        flywheel.Session: The found or created Flywheel Session.
     """
     if not label:
         return None
     session = subject.sessions.find_first(f"label={label}")
 
     if not session:
+        log.info(f'Session with label "{label}" not found, creating.')
         session = subject.add_session(label=label)
-        if age:
-            session.update(age=age)
+    else:
+        log.info(f'Session with label "{label}" found.')
 
     if session:
+        if update and kwargs:
+            session.update(**kwargs)
         session = session.reload()
 
     return session
 
 
-def find_or_create_acquisition(label, info_dict, fp, session, update_info=True):
+def find_or_create_acquisition(label, session, update=True, **kwargs):
     """
     Find or create a Acquisition with "label" under "Session".
 
     If Acquisition exists, upload filepath "fp" and update info if `update_info`==True.
 
     Args:
-        label (str): The label to display for this Acquisition
-        info_dict (dict): Dictionary to update or add to instance of Acquisition.
-        fp (str): Fullpath to a file to upload into the found/created Acquisition.
+        label (str): The Acquisition label to search or create.
         session (flywheel.Session): Session to find or create Acquisition under.
-        update_info (bool, optional): Flag to update info of existing Acquisition.
+        update (bool, optional): Flag to update metadata of new or existing Acquisition.
             Defaults to True.
+        kwargs (dict): Any key/value properties of the Acquisition subject you would
+            like to update.
 
     Returns:
         flywheel.Acquisition: The found or created Flywheel Acquisition object.
     """
     if not label:
         return None
+
     acq = session.acquisitions.find_first(f"label={label}")
 
     if not acq:
+        log.info(f'Acquisition with label "{label}" not found, creating.')
         acq = session.add_acquisition(label=label)
 
-        if info_dict:
-            acq.update(info=info_dict)
+    else:
+        log.info(f'Acquisition with label "{label}" found.')
 
-    if acq:
-        basename = os.path.basename(fp)
-        if os.path.isfile(fp) and not acq.get_file(basename):
-
-            acq.upload_file(fp)
-
-            print(f"Uploading {fp} to acquisition {acq.id}")
-            while not acq.get_file(basename):
-                acq = acq.reload()
-                time.sleep(1)
-
-    if update_info:
-        f = acq.get_file(basename)
-        f.update({"type": "dicom", "modality": "X-ray"})
-        f.update_info(info_dict)
+    if update and kwargs:
+        acq.update(**kwargs)
 
     acq = acq.reload()
 
     return acq
+
+
+def upload_file_to_acquisition(acquisition, fp, update=True, **kwargs):
+    """Upload file to Acquisition container and update info if `update=True`.
+    
+    Args:
+        acquisition (flywheel.Acquisition): A Flywheel Acquisition
+        fp (Path-like): Path to file to upload
+        update (bool): If true, update file metadata with key/value passed as kwargs.
+        kwargs (dict): Any key/value properties of the Acquisition file you would like
+            to update.
+    """
+    basename = os.path.basename(fp)
+    if not os.path.isfile(fp):
+        raise ValueError(f"{fp} is not file.")
+
+    if acquisition.get_file(basename):
+        log.info(f"File {basename} already exists in container. Skipping.")
+        return
+    else:
+        log.info(f"Uploading {fp} to acquisition {acquisition.id}")
+        acquisition.upload_file(fp)
+        # to make sure the file is available before performing an update
+        while not acquisition.get_file(basename):
+            acquisition = acquisition.reload()
+            time.sleep(1)
+
+    if update and kwargs:
+        f = acquisition.get_file(basename)
+        f.update(**kwargs)

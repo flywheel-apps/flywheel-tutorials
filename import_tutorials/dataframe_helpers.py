@@ -5,8 +5,11 @@
 """
 import copy
 import datetime
+import logging
 
 import numpy as np
+
+log = logging.getLogger(__name__)
 
 
 def convert_time_to_seconds(time_span, scale):
@@ -20,7 +23,7 @@ def convert_time_to_seconds(time_span, scale):
         scale (str): The units of the length of time specified in "time_span".
             Valid Entries: 'Y', 'M', 'W', 'D'
     Returns:
-        datetime.timedelta: Total seconds in time_span.
+        int: Total seconds in time_span.
     """
 
     conversion = {
@@ -34,6 +37,7 @@ def convert_time_to_seconds(time_span, scale):
             int(time_span) * conversion.get(scale)
         ).total_seconds()
     except ValueError:
+        log.warning("Error, returning 0.")
         seconds = 0
     return seconds
 
