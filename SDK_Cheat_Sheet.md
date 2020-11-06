@@ -35,11 +35,19 @@ container = container.reload()
 ```
 
 ## Finders
-`fw_client.container_class`
+Finders can be used from the client on any container class (Groups, Projects, Subjects, Sessions, Acquisitions, Jobs)
 
-`parent_container.container_class`
+`fw_client.container_class` (e.g. `fw_client.projects()`)
+
+Or from an immediate child of a valid container
+
+`parent_container.container_class` (e.g. `project.sessions()`)
+
+The finder syntax is the same for both forms.  Some container-specific search strings may apply.
 
 * **\*.container_class()**:
+
+    Returns a complete listing of the indicated container without populating files, analyses, or custom information.
 
     ``` python
     for session in fw_client.sessions():
@@ -48,6 +56,10 @@ container = container.reload()
     ```
 
 * **\*.container_class.find()**:
+
+    Returns a complete listing of the indicated container matching the search string. Lists of files, analyses, or custom information are not included without a `container.reload` on each container in list.
+
+    Search strings are comma-separated conditionals acting as an `AND` statement.
 
     ``` python
     for session in fw_client.sessions.find('date>{date string},otherthing'):
