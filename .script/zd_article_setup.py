@@ -98,8 +98,8 @@ def proccess_notebook(notebook_title, filename):
             public_dir = BASE_PATH / 'public'
             with open('article.json', 'w') as output_files:
                 json.dump(article_obj, output_files)
-                article_json_path = public_dir / 'article.json'
-                publish_article(article_json_path, notebook_title)
+            article_json_path = public_dir / 'article.json'
+            publish_article(article_json_path, notebook_title)
     except Exception as e:
         log.exception(f'Error occurred. {e}')
 
