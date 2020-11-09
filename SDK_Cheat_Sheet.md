@@ -35,6 +35,7 @@ container = container.reload()
 ```
 
 ## Finders
+
 Finders can be used from the client on any container class (Groups, Projects, Subjects, Sessions, Acquisitions, Jobs)
 
 `fw_client.container_class` (e.g. `fw_client.projects()`)
@@ -45,7 +46,7 @@ Or from an immediate child of a valid container
 
 The finder syntax is the same for both forms.  Some container-specific search strings may apply.
 
-* **\*.container_class()**:
+* **[\*.container_class()](https://flywheel-io.gitlab.io/product/backend/sdk/branches/master/python/flywheel.html?highlight=find_first#flywheel.finder.Finder)**:
 
     Returns a complete listing of the indicated container without populating files, analyses, or custom information.
 
@@ -55,46 +56,57 @@ The finder syntax is the same for both forms.  Some container-specific search st
             print(f"{session.label}: {acquisition.label}")
     ```
 
-* **\*.container_class.find()**:
+* **[\*.container_class.find()](https://flywheel-io.gitlab.io/product/backend/sdk/branches/master/python/flywheel.html?highlight=find_first#flywheel.finder.Finder)**:
 
-    Returns a complete listing of the indicated container matching the search string. Lists of files, analyses, or custom information are not included without a `container.reload` on each container in list.
+    Find all items in the collection that match the provided filter. Lists of files, analyses, or custom information are not included without a `container.reload` on each container in list.
 
     Search strings are comma-separated conditionals acting as an `AND` statement.
 
     ``` python
-    for session in fw_client.sessions.find('date>{date string},otherthing'):
-        for acquisition in session.acquisitions.find('otherthing,otherthing'):
+    search = 'modified>=2019-08-07,modified<=2020-08-07'
+    for session in fw_client.sessions.find(search):
+        for acquisition in session.acquisitions.find(search):
             print(f"{session.label}: {acquisition.label}")
     ```
 
-* **\*.container_class.iter()**:
+* **[\*.container_class.find_first()](https://flywheel-io.gitlab.io/product/backend/sdk/branches/master/python/flywheel.html?highlight=find_first#flywheel.finder.Finder.find_first)**:
 
-  ``` python
-  for session in fw_client.sessions.iter():
-      for acquisition in session.acquisitions.iter():
-          print(f"{session.label}: {acquisition.label}")
-  ```
-
-* **\*.container_class.iter_find()**:
+    Find the first item matching the provided filter. Returns None if no items matched.
 
     ``` python
-    for session in fw_client.sessions.iter_find('date>{date string},otherthing'):
-        for acquisition in session.acquisitions.iter_find('otherthing,otherthing'):
+    search = 'modified>=2019-08-07,modified<=2020-08-07'
+    session = fw_client.sessions.find_first(search)
+    acquisition = session.acquisitions.find_first(search)
+    print(f"{session.label}: {acquisition.label}")
+    ```
+
+* **[\*.container_class.find_one()](https://flywheel-io.gitlab.io/product/backend/sdk/branches/master/python/flywheel.html?highlight=find_first#flywheel.finder.Finder.find_one)**:
+
+    Find exactly one item matching the provided filter. Raises a ValueError if 0 or 2+ items matched.
+
+    ``` python
+    session = fw_client.sessions.find_one()
+    acquisition = session.acquisitions.find_one()
+    print(f"{session.label}: {acquisition.label}")
+    ```
+
+* **[\*.container_class.iter()](https://flywheel-io.gitlab.io/product/backend/sdk/branches/master/python/flywheel.html?highlight=find_first#flywheel.finder.Finder.iter)**:
+
+    Iterate over all items in the collection, without limit.
+
+    ``` python
+    for session in fw_client.sessions.iter():
+        for acquisition in session.acquisitions.iter():
             print(f"{session.label}: {acquisition.label}")
     ```
 
-* **\*.container_class.find_first()**:
+* **[\*.container_class.iter_find()](https://flywheel-io.gitlab.io/product/backend/sdk/branches/master/python/flywheel.html?highlight=find_first#flywheel.finder.Finder.iter_find)**:
 
-  ``` python
-  session = fw_client.sessions.find_first()
-  acquisition = session.acquisitions.find_first()
-  print(f"{session.label}: {acquisition.label}")
-  ```
+    Iterate over all items in the collection that match the provided filter, without limit.
 
-* **\*.container_class.find_one()**:
-
-  ``` python
-  session = fw_client.sessions.find_one()
-  acquisition = session.acquisitions.find_one()
-  print(f"{session.label}: {acquisition.label}")
-  ```
+    ``` python
+    search = 'modified>=2019-08-07,modified<=2020-08-07'
+    for session in fw_client.sessions.iter_find(search):
+        for acquisition in session.acquisitions.iter_find(search):
+            print(f"{session.label}: {acquisition.label}")
+    ```
