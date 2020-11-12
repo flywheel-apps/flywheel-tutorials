@@ -20,7 +20,9 @@ NIfTI is generally thought of as a much simpler file format.  Additionally, ther
 Converting from DICOM to NIfTI is often necessary to do processing on clinical imaging data.  Clinical imaging comes in the DICOM file format whereas most processing libraries are written to support NIfTI files.
 
 ### Challenges
-
+* DICOM and NIfTI use different patient coordinate systems (PCS, the coordinate system from the perspesctive of the patient)
+* 
+TODO:
 
 
 [1] M. Larobina, L. Murino, "Medical Image File Formats," _J. Digit. Imaging_, vol. 27, no. 2, pp. 200-206, 2014. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3948928/
