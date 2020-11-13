@@ -36,9 +36,9 @@ variables:
 pages:
   extends: .python
   stage: publish
-    #only:
-    #refs:
-    #- master
+  only:
+    refs:
+      - master
   script:
     - cd $CI_PROJECT_DIR
     - mkdir public
