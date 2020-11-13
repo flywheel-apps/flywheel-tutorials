@@ -33,21 +33,23 @@ variables:
   - pip install nbconvert
   - pip install requests==2.7.0
 
-publish:convert_to_pages:
+pages:
   extends: .python
   stage: publish
   only:
     refs:
       - master
   script:
-    - cd /builds/flywheel-io/public/flywheel-tutorials
+    - cd $CI_PROJECT_DIR
     - mkdir public
-    - cd /builds/flywheel-io/public/flywheel-tutorials/python
-    - for FILE in *.ipynb; do jupyter nbconvert --output-dir='../public' --to html $FILE; done
-    - mv ../public/TOC.html ../public/tmp.html
-    - cat ../public/tmp.html | sed 's/gitlab.com\/flywheel-io\/public\/flywheel-tutorials\/-\/blob\/master\/python/flywheel-io.gitlab.io\/public\/flywheel-tutorials/g;s/.ipynb/.html/g' > ../public/index.html
-    - rm ../public/tmp.html
-
+    - |
+      for FILE in ${CI_PROJECT_DIR}/python/*.ipynb; do 
+        jupyter nbconvert --output-dir=${CI_PROJECT_DIR}/public --to html $FILE; 
+        echo "File $FILE converted"
+      done
+    - mv public/TOC.html public/tmp.html
+    - cat public/tmp.html | sed 's_gitlab.com/flywheel-io/public/flywheel-tutorials/-/blob/master/python_flywheel-io.gitlab.io/public/flywheel-tutorials_g;s/.ipynb/.html/g' > public/index.html
+    - ls public/
   artifacts:
     paths:
       - public
@@ -60,7 +62,7 @@ deploy:publish_article:
       - master
   script:
     - sleep 3m
-    - python3 /builds/flywheel-io/public/flywheel-tutorials/.script/zd_article_setup.py
+    - python3 ${CI_PROJECT_DIR}/.script/zd_article_setup.py
   artifacts:
     paths:
-      - /builds/flywheel-io/public/flywheel-tutorials/public
+      - public
