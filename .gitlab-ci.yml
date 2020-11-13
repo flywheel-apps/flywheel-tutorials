@@ -49,6 +49,7 @@ publish:convert_to_pages:
       done
     - mv public/TOC.html public/index.html
     - sed -i 's_gitlab.com/flywheel-io/public/flywheel-tutorials/-/blob/master/python_flywheel-io.gitlab.io/public/flywheel-tutorials_g;s/.ipynb/.html/g' public/index.html
+    - ls public/
   artifacts:
     paths:
       - public
