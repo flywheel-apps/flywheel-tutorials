@@ -33,7 +33,7 @@ variables:
   - pip install nbconvert
   - pip install requests==2.7.0
 
-publish:convert_to_pages:
+pages:
   extends: .python
   stage: publish
     #only:
@@ -47,8 +47,8 @@ publish:convert_to_pages:
         jupyter nbconvert --output-dir=${CI_PROJECT_DIR}/public --to html $FILE; 
         echo "File $FILE converted"
       done
-    - mv public/TOC.html public/index.html
-    - sed -i 's_gitlab.com/flywheel-io/public/flywheel-tutorials/-/blob/master/python_flywheel-io.gitlab.io/public/flywheel-tutorials_g;s/.ipynb/.html/g' public/index.html
+    - mv public/TOC.html public/tmp.html
+    - cat public/tmp.html | sed 's_gitlab.com/flywheel-io/public/flywheel-tutorials/-/blob/master/python_flywheel-io.gitlab.io/public/flywheel-tutorials_g;s/.ipynb/.html/g' > public/index.html
     - ls public/
   artifacts:
     paths:
