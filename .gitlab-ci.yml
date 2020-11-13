@@ -43,7 +43,7 @@ publish:convert_to_pages:
     - cd $CI_PROJECT_DIR
     - mkdir public
     - |
-      for FILE in {$CI_PROJECT_DIR}/python/*.ipynb; do 
+      for FILE in ${CI_PROJECT_DIR}/python/*.ipynb; do 
         jupyter nbconvert --output-dir=${CI_PROJECT_DIR}/public --to html $FILE; 
         echo "File $FILE converted"
       done
