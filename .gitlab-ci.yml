@@ -43,12 +43,12 @@ pages:
     - cd $CI_PROJECT_DIR
     - mkdir public
     - |
-      for FILE in ${CI_PROJECT_DIR}/python/*.ipynb; do 
+      for FILE in ${CI_PROJECT_DIR}/jupyter-notebooks/*.ipynb; do 
         jupyter nbconvert --output-dir=${CI_PROJECT_DIR}/public --to html $FILE; 
         echo "File $FILE converted"
       done
     - mv public/TOC.html public/tmp.html
-    - cat public/tmp.html | sed 's_gitlab.com/flywheel-io/public/flywheel-tutorials/-/blob/master/python_flywheel-io.gitlab.io/public/flywheel-tutorials_g;s/.ipynb/.html/g' > public/index.html
+    - cat public/tmp.html | sed 's_gitlab.com/flywheel-io/public/flywheel-tutorials/-/blob/master/jupyter-notebooks_flywheel-io.gitlab.io/public/flywheel-tutorials_g;s/.ipynb/.html/g' > public/index.html
     - rm public/tmp.html
     - ls public/
   artifacts:

@@ -1,0 +1,4 @@
+﻿First Name,Last Name,Email,Group ID,Site-Role,Project Permission
+testfirst,testlast,emailtest,test-group-id,User,Read/write
+testsecond, testperson, email2, test-group-id-2, User, read only
+name2, name3, email1234, group123, User, admin

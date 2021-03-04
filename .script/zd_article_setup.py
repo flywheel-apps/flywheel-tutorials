@@ -1,9 +1,9 @@
 import json
-import os
-import requests
 import logging
-
+import os
 from pathlib import Path
+
+import requests
 
 DENY_LIST = ['index', 'template', 'TOC']
 BASE_PATH = Path('/builds/flywheel-io/public/flywheel-tutorials/')

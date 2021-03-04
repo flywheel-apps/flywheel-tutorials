@@ -1,16 +1,17 @@
 #!/usr/env/bin python
 
-import flywheel
-import logging
 import argparse
+import logging
 import os
-import pandas as pd
 from pathlib import Path
+
+import flywheel
+import pandas as pd
 
 log = logging.getLogger(__name__)
 log.setLevel(logging.INFO)
 
-CSV_COLUMN_LIST = ['Group Name', 'Group ID', 'Project']
+CSV_COLUMN_LIST = ["Group Name", "Group ID", "Project Label"]
 
 
 def validate_file_type(input_file):
@@ -28,15 +29,17 @@ def validate_file_type(input_file):
 
     """
     if not os.path.exists(input_file):
-        raise argparse.ArgumentTypeError(f'{input_file} does not exist')
-    if not input_file.endswith('.csv'):
-        raise argparse.ArgumentTypeError(f'{input_file} is not in the right format.')
+        raise argparse.ArgumentTypeError(f"{input_file} does not exist")
+    if not input_file.endswith(".csv"):
+        raise argparse.ArgumentTypeError(f"{input_file} is not in the right format.")
     else:
         df = pd.read_csv(input_file)
         df.drop(df.filter(regex="Unnamed"), axis=1, inplace=True)
         col_list = df.columns.tolist()
         if col_list != CSV_COLUMN_LIST:
-            raise argparse.ArgumentTypeError(f'{input_file} needs to have the following {CSV_COLUMN_LIST} in the same order.')
+            raise argparse.ArgumentTypeError(
+                f"{input_file} needs to have the following {CSV_COLUMN_LIST} in the same order."
+            )
     return input_file
 
 
@@ -113,18 +116,24 @@ def find_or_create_project(label, group, update=True, **kwargs):
     return project
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='This is a program to find or create group and project container in '
-                                                 'your Instance.\nThis program is designed for Site Admin user only. It '
-                                                 'required API Key and CSV file as input.\nExample Code:\n\tpython '
-                                                 'path/to/create-group-project.py --key <your-api-key-here> --file '
-                                                 'path/to/group-project-list.csv')
-    parser.add_argument('--key', dest='api_key', metavar='Key', help='API Key')
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="This is a program to find or create group and project container in "
+        "your Instance.\nThis program is designed for Site Admin user only. It "
+        "required API Key and CSV file as input.\nExample Code:\n\tpython "
+        "path/to/create-group-project.py --key <your-api-key-here> --file "
+        "path/to/group-project-list.csv"
+    )
+    parser.add_argument("--key", dest="api_key", metavar="Key", help="API Key")
 
-    parser.add_argument('--file', dest='input', required=True, type=validate_file_type, help='CSV File to find or '
-                                                                                             'create group and '
-                                                                                             'project container',
-                        metavar='CSV File')
+    parser.add_argument(
+        "--file",
+        dest="input",
+        required=True,
+        type=validate_file_type,
+        help="CSV File to find or " "create group and " "project container",
+        metavar="CSV File",
+    )
 
     args = parser.parse_args()
 
@@ -132,14 +141,22 @@ if __name__ == '__main__':
 
     user_roles = fw.get_current_user().roles
 
-    if 'site_admin' in user_roles:
+    if "site_admin" in user_roles:
 
-        df = pd.read_csv(Path(args.input)).dropna(how='all')
-        # Group Name,Group ID,Project
-        for (index, group_name, group_id, project) in df.itertuples():
-            if not pd.isna(group_name) and not pd.isna(group_id) and not pd.isna(project):
+        df = pd.read_csv(Path(args.input)).dropna(how="all")
+
+        for (index, group_name, group_id, project_label) in df.itertuples():
+            if (
+                not pd.isna(group_name)
+                and not pd.isna(group_id)
+                and not pd.isna(project_label)
+            ):
                 # create group
-                group_container = find_or_create_group(fw, group_id.strip().lower(), group_name.strip().upper())
+                group_container = find_or_create_group(
+                    fw, group_id.strip().lower(), group_name.strip().upper()
+                )
 
                 # create project
-                project_container = find_or_create_project(project, group_container, update=False)
+                project_container = find_or_create_project(
+                    project_label, group_container, update=False
+                )
