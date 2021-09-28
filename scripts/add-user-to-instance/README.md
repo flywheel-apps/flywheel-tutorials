@@ -21,7 +21,9 @@ _NOTES: We will be using [Project Permission Template](https://docs.flywheel.io/
 | name2 | name3 | email1234 | group123 | User | admin |
 > You can also find an example csv file (*user-list-sample.csv*) in this directory.
 
-_NOTES: For Project Permission, you should put one of the following, **read/write**, **read only**, or **admin**, and it is not case sensitive._
+_NOTES:_
+_ 1. For Project Permission, you should put one of the following, **read/write**, **read only**, or **admin**, and it is not case sensitive. The script will not work if the naming of the roles do not match the above._
+_ 2. For Site Role, the script will only accept **user**, **developer** and **site admin** as the site-wide role at this moment.
 
 
 ## Instruction
