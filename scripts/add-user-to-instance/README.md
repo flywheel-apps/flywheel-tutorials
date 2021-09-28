@@ -30,7 +30,7 @@ Step 1: Run the following command in your terminal to install required packages
 ```
 pip install -r path/to/requirements.txt 
 ```
-Step 2: Makesure the group(s) has been created. If not, feel free to look at this section before proceeding. 
+Step 2: Makesure the group(s) has been created. If not, consider to go over [this section](https://gitlab.com/flywheel-io/public/flywheel-tutorials/-/tree/user-creation-script/scripts/add-group-project-to-instance) to learn how to add group(s) and project(s) to your instance via SDK . 
 
 Step 3: Add or modify user permission
 ```
