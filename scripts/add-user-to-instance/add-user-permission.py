@@ -263,6 +263,9 @@ if __name__ == "__main__":
                 updated_email = check_or_add_suffix(email.strip(), args.email_suffix)
                 log.info(f"Finding or adding {updated_email} into the instance")
 
+                if site_role == "site admin":
+                    site_role.replace(" ", "_")
+
                 user_obj = find_or_add_user(
                     index,
                     firstname.strip().title(),
