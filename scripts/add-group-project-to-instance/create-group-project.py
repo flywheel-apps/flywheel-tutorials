@@ -137,7 +137,8 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    fw = flywheel.Client(args.api_key)
+    # Enable root to ensure have access to all groups and projects
+    fw = flywheel.Client(args.api_key, root=True)
 
     user_roles = fw.get_current_user().roles
 
@@ -153,10 +154,10 @@ if __name__ == "__main__":
             ):
                 # create group
                 group_container = find_or_create_group(
-                    fw, group_id.strip().lower(), group_name.strip().upper()
+                    fw, group_id.strip().lower(), group_name.strip()
                 )
 
                 # create project
                 project_container = find_or_create_project(
-                    project_label, group_container, update=False
+                    project_label.strip(), group_container, update=False
                 )
