@@ -3,7 +3,7 @@
 This notebook and python script can be used to re-run jobs on Flywheel.
 
 After you have run a gear on the Flywheel platform where you have figured out the proper inputs and configuration and are happy with the results, you can easily create a python script that will re-run that job.  
-You can edit the script to run on a different session or subject or put in a loop and run the gear on all sessions/subjects.
+You can then edit the script that is created to run on a different session or subject or put in a loop and run the gear on all sessions/subjects.
 
 The python script to do this is called “[copy-job.py](”./copy-job.py")". 
 To get it to run, you need to: 
