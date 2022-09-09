@@ -177,7 +177,8 @@ def main(fw):
     sfp.write(f"    config = {pprint.pformat(job['config']['config'], indent=4)}\n")
     sfp.write("\n")
     tags = job["tags"]
-    tags.remove("analysis") # that will be added automatically
+    if "analysis" in tags:
+        tags.remove("analysis") # that will be added automatically
     sfp.write(f"    tags = {pprint.pformat(tags, indent=4)}\n")
     sfp.write("\n")
 
@@ -206,6 +207,7 @@ def main(fw):
     else:
         lines = f"""
     job_id = gear.run(
+        tags=tags,
         config=config,
         inputs=inputs,
         destination=destination
