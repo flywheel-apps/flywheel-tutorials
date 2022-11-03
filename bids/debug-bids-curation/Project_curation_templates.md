@@ -12,10 +12,10 @@ The "definitions" section defines how the BIDS specification will be represented
 ![project-curation-template_definitions.png](pics/template/project-curation-template_definitions.png)
 
 For example, "Filename" and "Acq" are strings:
-![project-curation-template_simiple-defs.png](pics/template/project-curation-template_simiple-defs.png)
+![project-curation-template_simple-defs.png](pics/template/project-curation-template_simiple-defs.png)
 
 While "IntendedFor" is an array (list) with a default of specific labeled booleans and strings.
-![project-curation-template_intendef-for.png](pics/template/project-curation-template_intendef-for.png)
+![project-curation-template_intended-for.png](pics/template/project-curation-template_intended-for.png)
 
 The most interesting definitions are for containers and files.  
 The definition for the project container will become the required BIDS file, "dataset_description.json":
@@ -37,8 +37,8 @@ Here is the fully expanded "where" section of the rule:
 ![project-curation-template_rules-where.png](pics/template/project-curation-template_rules-where.png)
 
 This is a list of conditions that all have to be satisfied before this rule can be executed.  
-For anatomical files, first, the container has to be a file (not a project, subject, session, or acquisition, but a file) and it has to be a file attached to an acquisition.  The file type must be NIfTI or a JSON (source code) file and the classification "Intent" must be "Structural".  Following the RrproIn naming convention, the name must start with "anat-".
+For anatomical files, first, the container has to be a file (not a project, subject, session, or acquisition, but a file) and it has to be a file attached to an acquisition.  The file type must be NIfTI or a JSON (source code) file and the classification "Intent" must be "Structural".  Following the ReproIn naming convention, the name must start with "anat-".
 
-Here is the "initialize" section of the rule expanded with two of it's sections expanded as well, "Acq" and "Modality":
+Here is the "initialize" section of the rule expanded with two of its sections expanded as well, "Acq" and "Modality":
 ![project-curation-template_rules-initialize.png](pics/template/project-curation-template_rules-initialize.png)
-When the "where" section matches, each part of the "initialize" section is implemented.  This is where `file.info.BIDS.Acq` is set.  The regular expression shown is applied to the current acquisition label and the text right after the string "acq-" is used for the metadata value of `file.info.BIDS.acq`.  This continues for all of the items in "initialize" finishing with "Modality".  Here, `file.info.MIDS.Modality` is set the the matching pattern produced by the regular expression.  For example, if the acquisition label is "5 - anat-T1w_acq-singleband.nii.gz" then `file.info.BIDS.Acq` would get "singleband" and `file.info.BIDS.Modality` would be "T1w".  The subject and session are found in a similar way and the final BIDS name for the NIfTI file would be something like "sub-01_ses-01_acq-singleband_T1w.nii.gz"
+When the "where" section matches, each part of the "initialize" section is implemented.  This is where `file.info.BIDS.Acq` is set.  The regular expression shown is applied to the current acquisition label and the text right after the string "acq-" is used for the metadata value of `file.info.BIDS.acq`.  This continues for all the items in "initialize" finishing with "Modality".  Here, `file.info.MIDS.Modality` is set the matching pattern produced by the regular expression.  For example, if the acquisition label is "5 - anat-T1w_acq-singleband.nii.gz" then `file.info.BIDS.Acq` would get "singleband" and `file.info.BIDS.Modality` would be "T1w".  The subject and session are found in a similar way and the final BIDS name for the NIfTI file would be something like "sub-01_ses-01_acq-singleband_T1w.nii.gz"

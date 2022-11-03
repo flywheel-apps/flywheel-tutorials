@@ -40,7 +40,7 @@ For example:
 `--api-key ss.ce.flywheel.io:YadaYadaYadaYadaHo -p atbs-study --session-only --session 5a19c137d8e083001c0b340e --reset --pickle-tree`
 
 Be sure to use the `--pickle-tree` flag.  It saves a local copy of the Flywheel hierarchy
-after it gets it the first time so you won't have to wait for that every time you run.
+after it gets it the first time, so you won't have to wait for that every time you run.
 Delete the local file "project_tree.pickle" when you want to get a fresh hierarchy.
 
 UPDATE: the `--pickle-tree` flag was removed.

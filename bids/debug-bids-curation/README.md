@@ -7,3 +7,5 @@ You will also need to understand [Project\_curation\_templates.md](Project_curat
 ## Examples
 
 - Add an ignore rule to a template: [Add\_ignore\_rule.md](Add_ignore_rule.md)
+- Add a new acquisition type to a template: [Add_bids_type.md](Add_bids_type.md)
+- Debug duplicated BIDS names: [Duplicated_BIDS_names.md](Duplicated_BIDS_names.md)

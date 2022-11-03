@@ -2,12 +2,13 @@
 
 ## Add an ignore rule to a template
 
-The way the template engine is implemented makes project curation templates very flexible and powerful.  As the engine traverses the Flywheel hierarchy, the most common metadata field to use to extract text strings is the `acquisition.label`.  This is the text label of the acquisiiton container where files, usually a DICOM and a NIfTI file, are attached.  One way to ignore all files in an acquisition is to have a rule to the template that looks for "_ignore-BIDS" at the end of that label.  
+The way the template engine is implemented makes project curation templates very flexible and powerful.  As the engine traverses the Flywheel hierarchy, the most common metadata field to use to extract text strings is the `acquisition.label`.  This is the text label of the acquisition container where files, usually a DICOM and a NIfTI file, are attached.  One way to ignore all files in an acquisition is to have a rule to the template that looks for "_ignore-BIDS" at the end of that label.  
 
 Here is the rule for acquisition containers in the default ReproIn project curation template:
 ![acquisition-rule.png](pics/add_ignore_rule/acquisition-rule.png)
 
-The rule is executed for every acquisition container.  When recognized, the above "initialize" section says to set the "ignore" property `acquisition.info.BIDS.ignore` based on a match of the given regular expression on the acquisition.label.  It is set to "true" if "ignore-BIDS" or "__dup" is found (for different capitalizations for "BIDS" or numbers after "__dup").  The "ignore" flag is a Flywheel metadata value that, when true, prevents all files in the acquisition from being written out in BIDS format.
+The rule is executed for every acquisition container.  When recognized, the above "initialize" section says to set the "ignore" property `acquisition.info.BIDS.ignore` based on a match of the given regular expression on the acquisition.label.  It is set to "true" if "ignore-BIDS" or "__dup" is found (for different capitalizations for "BIDS" or numbers after "__dup").  The "ignore" flag is a Flywheel metadata value that, when true, prevents all files in the acquisition from being written out in BIDS format.  See [here](Ignore_ses-subj.md) for how to ignore entire subjects and sessions
+:w
 
 Instead of ignoring the acquisition container, here is a rule that will ignore specific files if their DICOM tag "ImageType" contains "NORM":
 ![ignore-norm.png](pics/add_ignore_rule/ignore-norm.png)
