@@ -2,30 +2,25 @@
 
 ## Add an ignore rule to a template
 
-### Project Curation Templates
+The way the template engine is implemented makes project curation templates very flexible and powerful.  As the engine traverses the Flywheel hierarchy, the most common metadata field to use to extract text strings is the `acquisition.label`.  This is the text label of the acquisiiton container where files, usually a DICOM and a NIfTI file, are attached.  One way to ignore all files in an acquisition is to have a rule to the template that looks for "_ignore-BIDS" at the end of that label.  
 
-On Flywheel, BUDS curation is performed using "project curation templates".  This template establishes the structure of the BIDS metadata attached to objects in the Flywheel hierarchy.  This data can be accessed in the SDK in the BIDS namespace on container and file objects.  For example, file.info.BIDS has the information that will determine how that file will be written out in BIDS format.  This data can be seen on the Flywheel platform under "Custom Information".
+Here is the rule for acquisition containers in the default ReproIn project curation template:
+![acquisition-rule.png](pics/add_ignore_rule/acquisition-rule.png)
 
-The project curation template is a json file that has four main sections:
-![project-curation-template_sections.png](pics/add_ignore_rule/project-curation-template_sections.png)
+The rule is executed for every acquisition container.  When recognized, the above "initialize" section says to set the "ignore" property `acquisition.info.BIDS.ignore` based on a match of the given regular expression on the acquisition.label.  It is set to "true" if "ignore-BIDS" or "__dup" is found (for different capitalizations for "BIDS" or numbers after "__dup").  The "ignore" flag is a Flywheel metadata value that, when true, prevents all files in the acquisition from being written out in BIDS format.
 
-#### Definitions
-The "definitions" section defines how the BIDS specification will be represented in Flywheel "Custom Information" on containers and files.  The first ones shown here are simple pieces that will be assembled into more complicated representations of containers and files.
-![project-curation-template_definitions.png](pics/add_ignore_rule/project-curation-template_definitions.png)
+Instead of ignoring the acquisition container, here is a rule that will ignore specific files if their DICOM tag "ImageType" contains "NORM":
+![ignore-norm.png](pics/add_ignore_rule/ignore-norm.png)
 
-For example, "Filename" and "Acq" are strings:
-![project-curation-template_simiple-defs.png](pics/add_ignore_rule/project-curation-template_simiple-defs.png)
+This says that whenever a file in an acquisition that is a NIfTI or DICOM file and also hase the `file.info.ImageType` that contains "NORM", set the "ignore" flag for that file.
 
-While "IntendedFor" is an array (list) with a default of specific labeled booleans and strings.
-![project-curation-template_intendef-for.png](pics/add_ignore_rule/project-curation-template_intendef-for.png)
+Files can also be ignored based on their Flywheel classification.
+![ignore-derived.png](pics/add_ignore_rule/ignore-derived.png)
 
-The most interesting definitions are for containers and files.  
-The definition for the project container will become the required BIDS file, "dataset_description.json":
-![project-curation-template_project-def.png](pics/add_ignore_rule/project-curation-template_project-def.png)
+Here the file will be ignored for diffusion files if `file.classification.Features includes "Derived".
 
-An MRI Anatomical file in the BIDS Specification is defined here by "anat_file":
-![project-curation-template_anat-file-def.png](pics/add_ignore_rule/project-curation-template_anat-file-def.png)
-In the above definition under "properties", all information necessary to write out an anatomical file in BIDS format is captured. "Acq" is defined here as a reference to what was defined earlier (see "Acq" above, it is string that is made up of letters and numbers).
-Note how "Acq" is used to define part of the BIDS "Filename".  The "auto_update" string will be used to set the complete file name starting with "sub-".  Optional parts are enclosed in square brackets [].  Parts enclosed in curly brackets {} will be filled in by looking at metadata that has already been found.  For "Acq", the file name will have "_acq-{file.info.BIDS.Acq}".  How to find information such as the value for `file.info.BIDS.Acq` is determined by "rules" which are in the next section of the project curation template.
-
-#### Rules
+You may have noticed that these rules are not exactly straightforward in the way they are defined.  Also, there are additional features of rule processing that have not been discussed.  So what do you do when you need to add a new rule?  How do you make sure it is doing exactly what you need it to do?  Answer: step through rule processing using a debugger.  The main loop when curating BIDS is in `curate_bids_tree()` in `curate_bids.py`.  Put a breakpoint there to see how that main loop steps through the Flywheel hierarchy.  Then, take a look at more specifics into how the rules are used in `process_matching_templates()` which is in `bidsify_flywheel.py`.  There is a loop in there that steps through each rule.  Look for `for rule in rules:`.  If you are interested in figuring out how a "where" clause is processed, step into the line that is `if rule.test(context)`.  You can use a conditional breakpoint to stop only when a particular rule.id is being processed.  Here is an example:
+```python
+("file" in context) and (rule.id == "wip_file") and ("205 - sWIP T1W_3D_IRCstandard32 SENSE avg" in context["acquisition"].data["label"])
+```
+The first part makes sure you're dealing with a file, not some container.  The second specifies the rule ID, and the third looks for a specific acquisition label.  Using this condition on that "rule.test" line will let you zoom in to exactly the situation you want to figure out: what happens when a particular acquisition meets a particular rule.  After understanding the "where" part, step along in the code to see what happens when the rule matches: the "initialization" part.
