@@ -1,6 +1,6 @@
 # Debug BIDS Curation
 
-The first step is to set up your debugger:  [Setup\_pycharm.md](Setup_pycharm.md)
+The first step is to set up your debugger:  [Setup\_Pycharm.md](Setup_Pycharm.md)
 
 You will also need to understand [Project\_curation\_templates.md](Project_curation_templates.md)
 
