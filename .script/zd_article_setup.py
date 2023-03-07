@@ -9,6 +9,8 @@ DENY_LIST = ['index', 'template', 'TOC']
 BASE_PATH = Path('/builds/flywheel-io/public/flywheel-tutorials/')
 SUBDOMAIN = 'flywheelio'
 
+logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
+log = logging.getLogger('root')
 
 try:
     ZD_USER = os.environ.get('ZD_USER')
@@ -50,7 +52,10 @@ def main():
 
             # Update existing notebook in ZenDesk
             for article_name, article_id in zd_articles_w_id.items():
-                update_existing_notebook(str(article_id), current_notebook[article_name])
+                if current_notebook.get(article_name):
+                    update_existing_notebook(str(article_id), current_notebook[article_name])
+                else:
+                    log.warning(f"Unable to locate {article_name} on the current repo. Skipping update.")
 
 
 
