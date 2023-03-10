@@ -3,7 +3,9 @@
 ## Project Curation Templates
 
 ### Eventual Representation
-On Flywheel, BIDS curation is performed using "project curation templates". This type of template establishes the structure of the BIDS metadata attached to objects in the Flywheel hierarchy. Specifically, BIDS metadata typically is attached to a project, session, acquisition or file as a ".info.BIDS" field. For example, the file.info.BIDS field has the information determining (a) if the file should be ignored during curation, (b) how that file will be written out in BIDS format if not ignored, and various scan parameters used by BIDS apps. ![file.info.BIDS field](pics/template/project-curation-template_file-info-bids.png)
+On Flywheel, BIDS curation is performed using "project curation templates". This type of template establishes the structure of the BIDS metadata attached to objects in the Flywheel hierarchy. Specifically, BIDS metadata typically is attached to a project, session, acquisition or file as a ".info.BIDS" field. For example, the file.info.BIDS field has the information determining (a) if the file should be ignored during curation, (b) how that file will be written out in BIDS format if not ignored, and various scan parameters used by BIDS apps.
+![file.info.BIDS field](pics/template/project-curation-template_file-info-bids.png)
+
 This data can also be accessed in the SDK in the BIDS namespace on container (i.e., project, session, etc.) and file objects.  
 
 ### How to setup the JSON
