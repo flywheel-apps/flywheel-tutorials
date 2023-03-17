@@ -30,10 +30,15 @@ You may have noticed that these rules are not exactly straightforward in the way
 
 So what do you do when you need to add a new rule?  How do you make sure it is doing exactly what you need it to do?  Answer: step through rule processing using a debugger.
 
-The main loop when curating BIDS is in `curate_bids_tree()` in `curate_bids.py`.  Put a breakpoint there to see how that main loop steps through the Flywheel hierarchy.  Then, take a look at more specifics into how the rules are used in `bidsify_flywheel.process_matching_templates`.  One of the loops in `process_matching_templates` steps through each rule.  Look for `for rule in rules:`.  If you are interested in figuring out how a "where" clause is processed, step into the line that is `if rule.test(context)`.  You can use a conditional breakpoint to stop only when a particular rule.id is being processed.  
+The main loop when curating BIDS is in `curate_bids_tree()` in `curate_bids.py`.  
+(1) Put a breakpoint there to see how that main loop steps through the Flywheel hierarchy.  
+(2) Take a look at more specifics into how the rules are used in `bidsify_flywheel.process_matching_templates`.  
+- One of the loops in `process_matching_templates` steps through each rule.  Look for `for rule in rules:`.  If you are interested in figuring out how a "where" clause is processed, step into the line that is `if rule.test(context)`.  You can use a conditional breakpoint to stop only when a particular rule.id is being processed.  
 
-Here is an example:
+Here is a conditional breakpoint example:
 ```python
 ("file" in context) and (rule.id == "wip_file") and ("205 - sWIP T1W_3D_IRCstandard32 SENSE avg" in context["acquisition"].data["label"])
 ```
-The first part makes sure you're dealing with a file, not some container.  The second specifies the rule ID, and the third looks for a specific acquisition label.  Using this condition on that "rule.test" line will let you zoom in to exactly the situation you want to figure out: what happens when a particular acquisition meets a particular rule.  After understanding the "where" part, step along in the code to see what happens when the rule matches the "initialization" part.
+This example has three conditions. The first makes sure you're dealing with a file, not some container.  The second specifies the rule ID, and the third looks for a specific acquisition label.  
+
+Using this conditional breakpoint on the "rule.test" line in `process_matching_templates` lets you inspect the exact situation you want to figure out: what happens when a particular acquisition meets a particular rule.  After understanding the "where" part of the rule, step along in the code to see what happens when the rule matches the "initialization" part.
