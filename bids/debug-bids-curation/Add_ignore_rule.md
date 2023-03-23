@@ -5,7 +5,7 @@
 The template engine traverses the Flywheel hierarchy, matching and extracting metadata which matches the text strings in the project curation templates. This implementation is very flexible and powerful.   
 
 ### Ignore all files in an acquisition container
-The `acquisition.label` field is the most common metadata field used in the string matching.  The DICOM and NIfTI files of interest are attached often attached to the acquisition container referenced. Rather than writing "_ignore-BIDS" at the end of each file in the acquisition, one can ignore all files by adding a template rule that looks for "_ignore-BIDS" at the end of `acquisition.label`. Here is an example of ignoring an entire acquisition in the UI.
+String matches are most commonly tested against the metadata field, `acquisition.label`. field is the most common metadata field used in the string matching.  This field is the text label of the acquisition container where files, usually a DICOM and a NIfTI file, are attached. Rather than labeling each file in the acquisition with an ignore flag (by checking the "ignore" box in the UI, one can ignore all files in an acquisition by adding a template rule that looks for "_ignore-BIDS" at the end of `acquisition.label`. Here is an example of ignoring an entire acquisition in the UI.
 
 ![ignore_bids_acq.png](pics/add_ignore_rule/ignore_bids_acq.png)
 
