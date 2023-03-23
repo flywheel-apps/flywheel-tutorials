@@ -2,9 +2,25 @@
 
 ## Add a new acquisition type from the BIDS Specification
 
-Adding a whole new type of modality from the BIDS specification is essentially duplicating the work of creating the MRI specification.  For instance, adding Microscopy (see [Section 10-microscopy](https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/10-microscopy.html) of the Specification), in the "definitions" section of the template, a new "micr_file" would be added that has a "micr/" folder (like "anat/" "func/" etc.), it would have a new "_sample-<label>" element-value pair, and many new modality suffixes (2PE, BF, CARS, CONF, DIC, etc.) and file extensions (png, tif, ome.tif, ome.btf, and ome.zarr) would need to be added.  Additional optional filename entities would also need to be added to the definitions like "stain", "chunk", etc.  Then rules would have to be created to match specific file name conventions (a ReproIn-like convention could be developed), and specific regular expressions would have to be created to find the values for the new entities.  This requires a set of example files for testing and development of the new sections of the project curation template.
+To add a new modality conforming to the BIDS specification, one needs to define the entities (in order), a rule, and regular expressions. 
 
-Adding new types of anatomical scans, Multi-echo Gradient Recalled Echo (MEGRE) and Multi-echo Spin Echo (MESE) scans, to the existing "anat_file" MRI definition involved only adding two lines  ("MEGRE" and "MESE") to the "enum" list here for the "Modaliy" because the rest of the template was still applicable:
+### Microscopy example (see [Section 10-microscopy](https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/10-microscopy.html) of the Specification)
+For the "definitions" section of the template, one would add:
+1) a new "micr_file" that has a "micr/" folder (like "anat/" "func/" etc.).
+2) a new "_sample-<label>" element-value pair
+3) many new modality suffixes (2PE, BF, CARS, CONF, DIC, etc.)
+4) applicable file extensions (png, tif, ome.tif, ome.btf, and ome.zarr)  
+
+Additional optional filename entities would also need to be added to the definitions like "stain", "chunk", etc.  
+For the "rules" section of the template, create:
+1) a rule to match specific file name conventions (a ReproIn-like convention could be developed)
+2) specific regular expressions to find the values for the new entities.  
+
+To develop and test the new sections of the project curation template, you must use a set of example files.
+
+### MEGRE and MESE example
+### Modifying the "anat_file" definition in the template
+Adding new types of anatomical scans, Multi-echo Gradient Recalled Echo (MEGRE) and Multi-echo Spin Echo (MESE), to the existing "anat_file" MRI definition involves only adding two lines  ("MEGRE" and "MESE") to the "enum" list here for the "Modality" because the rest of the template still applies:
 
 ```json
         "Modality": {
