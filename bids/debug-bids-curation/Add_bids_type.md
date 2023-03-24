@@ -51,5 +51,9 @@ Adding new types of anatomical scans, Multi-echo Gradient Recalled Echo (MEGRE) 
           ]
         },
 ```
+### How BIDS import/curation handles special cases
+When adding a new type of acquisition to the template, most of the BIDSification is based on the acquisition label. However, some special cases, such as multi-echo, must also rely on the file name for proper conversion.  
 
-When adding a new type of acquisition, a lot depends on the file name in addition to the acquisition label.  For MRI, this is mainly handled by `dcm2niix` which was designed to convert DICOMs to NIfTI for BIDS formatting.  For MEGRE and MESE scans, `dcm2niix` creates multiple NIfTI files with names like "anat_MEGRE_acq_T1MEPREINT_e1.nii.gz", "anat_MEGRE_acq_T1MEPREINT_e2.nii.gz", etc.  In BIDS, these are converted into "_echo-1", "_echo-2", etc. elements of the file name.  The "echo" element was already part of the existing "anat_file" definition and initialization so those parts did not need to be added.
+For MRI, the initial file (re)naming is mainly handled by `dcm2niix` which was designed to convert DICOMs to NIfTI for BIDS formatting.  In the case of MEGRE and MESE scans, `dcm2niix` creates multiple NIfTI files with names like "anat_MEGRE_acq_T1MEPREINT_e1.nii.gz", "anat_MEGRE_acq_T1MEPREINT_e2.nii.gz", etc.  The corresponding BIDS name would spell out "_echo-1", "_echo-2", etc. entities in the file name.  When adding MESE and MEGRE, no further edits to the template were required. "Echo" is part of the "definitions"
+![Echo_entity.png](pics/Echo_entity.png)  
+and follows an index. Therefore, the "reproin_anat_file" rule was already set up to use the definitions ("anat_file" and "Echo") to find the digit corresponding to the echo and place it in the echo entity of the file name accordingly.
