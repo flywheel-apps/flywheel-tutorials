@@ -1,10 +1,37 @@
 # Debug BIDS Curation
 
 ## Add an ignore rule to a template
-The template engine traverses the Flywheel hierarchy, matching and extracting metadata which matches the text strings in the project curation templates. In some cases, some files should be ignored so they are excluded from any algorithmic processing. This is controlled by an "ignore" flag in the BIDS namespace of the metadata for files and containers.  Whenever the BIDS export code finds this flag set on a file or container, it is skipped (not downloaded/exported).  This happens for individual files and also for groups of files.  When an acquisition container has its "ignore" flag set, all files in that acquisition are skipped.  Similarly, when a session container has that flag set, all acquisitions in that session are skipped.
+The template engine traverses the Flywheel hierarchy, matching and extracting metadata as defined by text strings in the project curation templates. In some cases, some files should be ignored so they are excluded from any algorithmic processing. File exclusion is controlled by an "ignore" flag in the BIDS namespace of the metadata for files and containers.  Whenever the BIDS export code finds this flag set on a file or container, it is skipped (not downloaded/exported).  Skipping can be set for individual files and also for groups of files.  When an acquisition container has its "ignore" flag set, all files in that acquisition are skipped.  Similarly, when a session container has that flag set, all acquisitions in that session are skipped.
 
 Because the value of this "ignore" flag can be erased when the BIDS curation gear is run with the "reset" configuration turned on, it is desirable to have a more permanent way of ignoring groups of files.  In the `reproin.json` template, this was accomplished by adding two rules, one to ignore entire subjects, and another to ignore acquisitions.  In both of these rules, if the string "ignore-BIDS" is found in the container's label, the "ignore" flag is set to true.  An acquisition container's "ignore" flag is set when "ignore-BIDS" is in it's label.  But for subject containers, when its label contains "ignore-BIDS", all of the *session* containers in this subject are ignored by setting their "ignore" flags to true.
+### Ignore a subject or session
+Below is an example showing how to ignore entire sessions. The template will toggle the ignore boolean when the "initialize" regex condition is encountered by putting "_ignore-BIDS" in the session or subject label.
 
+```json
+            "id": "bids_session",
+            "template": "session",
+            "where": {
+                "container_type": "session"
+            },
+            "initialize": {
+              "ignore": {
+                "$switch": {
+                  "$on": "session.label",
+                  "$cases": [
+                    {
+                      "$regex": "(^|.*_)ignore(-(BIDS|bids)).*$",
+                      "$value": true
+                    },
+                    {
+                      "$default": true,
+                      "$value": false
+                    }
+                  ]
+                }
+              }
+            }
+```
+                        
 ### Ignore all files in an acquisition container
 In the UI, here is an example of setting the "ignore" flag in the BIDS namespace of the metadata for an acquisition container.
 
@@ -13,7 +40,7 @@ In the UI, here is an example of setting the "ignore" flag in the BIDS namespace
 Here is the rule for acquisition containers in the default ReproIn project curation template:
 ![acquisition-rule.png](pics/add_ignore_rule/acquisition-rule.png)
 
-The rule is executed for every acquisition container.  When recognized, the above "initialize" section says to set the "ignore" property `acquisition.info.BIDS.ignore` based on a match of the given regular expression on the acquisition.label.  `BIDS.ignore` is set to "true" if "ignore-BIDS" or "__dup" is found (the `$regex` allows for different capitalizations for "BIDS" or numbers after "__dup").  The "ignore" flag is a Flywheel metadata value that, when true, prevents all files in the acquisition from being written out in BIDS format.  See [here](Ignore_ses-subj.md) for how to ignore entire subjects and sessions.
+The rule is executed for every acquisition container.  When recognized, the above "initialize" section says to set the "ignore" property `acquisition.info.BIDS.ignore` based on a match of the given regular expression on the acquisition.label.  `BIDS.ignore` is set to "true" if "ignore-BIDS" or "__dup" is found (the `$regex` allows for different capitalizations for "BIDS" or numbers after "__dup").  The "ignore" flag is a Flywheel metadata value that, when true, prevents all files in the acquisition from being written out in BIDS format.
 
 ### Ignore specific file based on unique characteristics
 #### Image Type Example
