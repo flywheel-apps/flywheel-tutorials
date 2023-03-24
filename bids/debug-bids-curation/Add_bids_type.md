@@ -7,7 +7,7 @@ To add a new modality conforming to the BIDS specification, one needs to define 
 ### Microscopy example (see [Section 10-microscopy](https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/10-microscopy.html) of the Specification)
 For the "definitions" section of the template, one would add:
 1) a new "micr_file" that has a "micr/" folder (like "anat/" "func/" etc.).
-2) a new "_sample-<label>" element-value pair
+2) a new "_sample-<label>" key-value pair (e.g., a "Sample" definition + "properties":{"Sample": {"$ref": "#/definitions/Sample"} + "Filename" "auto_update":sub-xxx[_ses-yyy][_sample-{session.info.BIDS.Sample])
 3) many new modality suffixes (2PE, BF, CARS, CONF, DIC, etc.)
 4) applicable file extensions (png, tif, ome.tif, ome.btf, and ome.zarr)  
 
