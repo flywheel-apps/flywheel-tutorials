@@ -1,10 +1,12 @@
 # Debug BIDS Curation
 
 ## Add an ignore rule to a template
-The template engine traverses the Flywheel hierarchy, matching and extracting metadata which matches the text strings in the project curation templates. In some cases, a set of scans, sessions, or subjects should be ignored, skipped during the renaming to BIDS spec and excluded from any algorithmic processing. Because the template engine's implementation is very flexible and powerful, one can add a Flywheel-specific final entity, "_ignore-BIDS", to specify the set to skip. During template processing, this final entity will set the ignore boolean to true, which will stop renaming that container and keep the container from being downloaded/exported when the BIDS-specific dataset is requested.
+The template engine traverses the Flywheel hierarchy, matching and extracting metadata which matches the text strings in the project curation templates. In some cases, some files should be ignored so they are excluded from any algorithmic processing. This is controlled by an "ignore" flag in the BIDS namespace of the metadata for files and containers.  Whenever the BIDS export code finds this flag set on a file or container, it is skipped (not downloaded/exported).  This happens for individual files and also for groups of files.  When an acquisition container has its "ignore" flag set, all files in that acquisition are skipped.  Similarly, when a session container has that flag set, all acquisitions in that session are skipped.
+
+Because the value of this "ignore" flag can be erased when the BIDS curation gear is run with the "reset" configuration turned on, it is desirable to have a more permanent way of ignoring groups of files.  In the `reproin.json` template, this was accomplished by adding two rules, one to ignore entire subjects, and another to ignore acquisitions.  In both of these rules, if the string "ignore-BIDS" is found in the container's label, the "ignore" flag is set to true.  An acquisition container's "ignore" flag is set when "ignore-BIDS" is in it's label.  But for subject containers, when its label contains "ignore-BIDS", all of the *session* containers in this subject are ignored by setting their "ignore" flags to true.
 
 ### Ignore all files in an acquisition container
-String matches are most commonly tested against the metadata field, `acquisition.label`.  This field is the text label of the acquisition container where files, usually a DICOM and a NIfTI file, are attached. One can ignore all files in an acquisition by adding a template rule that looks for "_ignore-BIDS" at the end of `acquisition.label`. Here is an example of ignoring an entire acquisition in the UI.
+In the UI, here is an example of setting the "ignore" flag in the BIDS namespace of the metadata for an acquisition container.
 
 ![ignore_bids_acq.png](pics/add_ignore_rule/ignore_bids_acq.png)
 
