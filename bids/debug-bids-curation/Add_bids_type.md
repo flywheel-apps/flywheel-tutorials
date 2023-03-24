@@ -54,6 +54,16 @@ Adding new types of anatomical scans, Multi-echo Gradient Recalled Echo (MEGRE) 
 ### How BIDS import/curation handles special cases
 When adding a new type of acquisition to the template, most of the BIDSification is based on the acquisition label. However, some special cases, such as multi-echo, must also rely on the file name for proper conversion.  
 
-For MRI, the initial file (re)naming is mainly handled by `dcm2niix` which was designed to convert DICOMs to NIfTI for BIDS formatting.  In the case of MEGRE and MESE scans, `dcm2niix` creates multiple NIfTI files with names like "anat_MEGRE_acq_T1MEPREINT_e1.nii.gz", "anat_MEGRE_acq_T1MEPREINT_e2.nii.gz", etc.  The corresponding BIDS name would spell out "_echo-1", "_echo-2", etc. entities in the file name.  When adding MESE and MEGRE, no further edits to the template were required. "Echo" is part of the "definitions"
-![Echo_entity.png](pics/Echo_entity.png)  
-and follows an index. Therefore, the "reproin_anat_file" rule was already set up to use the definitions ("anat_file" and "Echo") to find the digit corresponding to the echo and place it in the echo entity of the file name accordingly.
+For MRI, the initial file (re)naming is mainly handled by `dcm2niix` which was designed to convert DICOMs to NIfTI for BIDS formatting.  In the case of MEGRE and MESE scans, `dcm2niix` creates multiple NIfTI files with names like "anat_MEGRE_acq_T1MEPREINT_e1.nii.gz", "anat_MEGRE_acq_T1MEPREINT_e2.nii.gz", etc.  The corresponding BIDS name would spell out "_echo-1", "_echo-2", etc. entities in the file name.  When adding MESE and MEGRE, no further edits to the template were required. 
+
+Follow this step-through for the specific sections of the Reproin template that were called, but did not need to be updated.
+
+"Echo" is part of the "definitions" and follows an index.
+![echo_entity_def.png](pics/echo_entity_def.png)  
+ 
+That "Echo" definition is referenced in the "anat_file" _**definition**_.
+![echo_entity_used_in_anat_def.png](pics/echo_entity_used_in_anat_def.png)
+
+The "reproin_anat_file" _**rule**_ was already set up to use the above definitions ("anat_file" and "Echo") to find the digit corresponding to the echo and place it in the echo entity of the file name accordingly. 
+
+![echo_entity_in_rule.png](pics/echo_entity_in_rule.png)  
