@@ -43,8 +43,6 @@ Be sure to use the `--pickle-tree` flag.  It saves a local copy of the Flywheel 
 after it gets it the first time, so you won't have to wait for that every time you run.
 Delete the local file "project_tree.pickle" when you want to get a fresh hierarchy.
 
-UPDATE: the `--pickle-tree` flag was removed.
-
 ![Type in Parameters](pics/Type_in_Parameters.png)
 
 Open "runCurate.py" and set a breakpoint at "main()"
@@ -55,7 +53,7 @@ Then launch the debugger:
 
 ![Launch the debugger](pics/Launch_the_debugger.png)
 
-Click on the "Console" tab and you'll see you are running, yay!
+Click on the "Console" tab, and you'll see you are running, yay!
 
 ![Click on the Console.png](pics/Click_on_the_Console.png)
 
