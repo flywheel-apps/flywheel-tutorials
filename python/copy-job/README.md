@@ -67,20 +67,20 @@ Here are the top lines of a script produced by copy-job.py that will run the cur
 #! /usr/bin/env python3
 """Run curate-bids on subject "Sub0255_KS_prf"
 
-    This script was created to run Job ID 61c66ced5c74bb9d0df09145
-    In project "bi/data_curation"
-    On Flywheel Instance https://flywheel.yourinstance.com/api
-"""
-import os
-import argparse
-from datetime import datetime
-import flywheel
+    This script was created to run Job ID 61c66ced5c74bb9d0df09145
+    In project "bi/data_curation"
+    On Flywheel Instance https://flywheel.yourinstance.com/api
+"""
+import os
+import argparse
+from datetime import datetime
+import flywheel
 
 input_files = {
-    "template": {
-        "container_path": "bi/data_curation",
-        "location_name": "reproin.json",
-    }
+    "template": {
+        "container_path": "bi/data_curation",
+        "location_name": "reproin.json",
+    }
 }
 ```
 
@@ -89,18 +89,19 @@ Note that ”input_files” specifies that the input template will be from the �
 The last line gives the Flywheel path to the subject.  You can edit this to make it run on a different subject or even run on the whole project by removing the subject “/Sub0255_KS_prf”:
 
 ```python
- main(fw):
-    gear = fw.lookup("gears/curate-bids")
-    print("gear.gear.version in original job was = 2.1.2_1.0.1")
-    print(f"gear.gear.version now = {gear.gear.version}")
-    print("destination_id = 61b09703877dd6f780179b7a")
-    print("destination type is: subject")
-    destination = fw.lookup("bi/data_curation/Sub0255_KS_prf")
+ def main(fw):
+    
+ gear = fw.lookup("gears/curate-bids")
+    print("gear.gear.version in original job was = 2.1.2_1.0.1")
+    print(f"gear.gear.version now = {gear.gear.version}")
+    print("destination_id = 61b09703877dd6f780179b7a")
+    print("destination type is: subject")
+    destination = fw.lookup("bi/data_curation/Sub0255_KS_prf")
 
 ...
 ```
 
-A bit farther down in the scrip, you can see the settings in the configuration, “config”.  These can bed edited as well:
+A bit further down in the scrip, you can see the settings in the configuration, “config”.  These can be edited as well:
 
 ```python
 ...
