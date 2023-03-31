@@ -1,6 +1,6 @@
 # copy-job
  
-This notebook and python script can be used to re-run jobs on Flywheel.
+This python script can be used to re-run jobs on Flywheel.
 
 After you have run a gear on the Flywheel platform where you have figured out the proper inputs and configuration and are happy with the results, you can easily create a python script that will re-run that job.  
 You can then edit the script that is created to run on a different session or subject or put in a loop and run the gear on all sessions/subjects.
@@ -33,11 +33,11 @@ You need to provide the script with the job ID for the gear run that you want to
 You can find the job ID on the Flywheel platform by looking at the Job Log.
 First, select the “Provenance” tab and find the job that you want to copy, then click on “View Log”:
 
-![View Log](pics/ViewLog.png "View Log")
+![View Log](assets/ViewLog.png "View Log")
 
 Select (double-click) and copy the job number:
 
-![Copy job number](pics/CopyJobNumber.png "Copy job number")
+![Copy job number](assets/CopyJobNumber.png "Copy job number")
 
 Run the command: 
 ```% copy-job.py 61b0ab1efafoa55a7a4dbff3c```
